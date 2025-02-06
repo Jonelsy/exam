@@ -15,20 +15,20 @@ let UserClass = class UserClass {
 };
 exports.UserClass = UserClass;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)({ type: 'int', name: 'id', comment: '关联ID' }),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "int", name: "id", comment: "关联ID" }),
     __metadata("design:type", Number)
 ], UserClass.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)('int', { name: 'user_id', comment: '用户ID' }),
+    (0, typeorm_1.Column)("int", { name: "user_id", comment: "用户ID" }),
     __metadata("design:type", Number)
 ], UserClass.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)('int', { name: 'class_id', comment: '班级ID' }),
+    (0, typeorm_1.Column)("int", { name: "class_id", comment: "班级ID" }),
     __metadata("design:type", Number)
 ], UserClass.prototype, "classId", void 0);
 exports.UserClass = UserClass = __decorate([
-    (0, typeorm_1.Index)('class_id', ['classId'], {}),
-    (0, typeorm_1.Index)('uk_user_class', ['userId', 'classId'], { unique: true }),
-    (0, typeorm_1.Entity)('user_class', { schema: 'exam' })
+    (0, typeorm_1.Index)("class_id", ["classId"], {}),
+    (0, typeorm_1.Index)("uk_user_class", ["userId", "classId"], { unique: true }),
+    (0, typeorm_1.Entity)("user_class", { schema: "exam" })
 ], UserClass);
 //# sourceMappingURL=UserClass.entity.js.map

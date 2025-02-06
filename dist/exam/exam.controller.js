@@ -12,6 +12,6 @@ let ExamController = class ExamController {
 };
 exports.ExamController = ExamController;
 exports.ExamController = ExamController = __decorate([
-    (0, common_1.Controller)('exam')
+    (0, common_1.Controller)("exam")
 ], ExamController);
 //# sourceMappingURL=exam.controller.js.map

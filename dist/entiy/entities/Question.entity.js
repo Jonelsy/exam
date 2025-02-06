@@ -16,38 +16,38 @@ let Question = class Question {
 exports.Question = Question;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)({
-        type: 'int',
-        name: 'question_id',
-        comment: '题目ID',
+        type: "int",
+        name: "question_id",
+        comment: "题目ID",
     }),
     __metadata("design:type", Number)
 ], Question.prototype, "questionId", void 0);
 __decorate([
-    (0, typeorm_1.Column)('int', { name: 'exam_id', comment: '所属考试ID' }),
+    (0, typeorm_1.Column)("int", { name: "exam_id", comment: "所属考试ID" }),
     __metadata("design:type", Number)
 ], Question.prototype, "examId", void 0);
 __decorate([
-    (0, typeorm_1.Column)('text', { name: 'content', comment: '题目内容' }),
+    (0, typeorm_1.Column)("text", { name: "content", comment: "题目内容" }),
     __metadata("design:type", String)
 ], Question.prototype, "content", void 0);
 __decorate([
-    (0, typeorm_1.Column)('tinyint', {
-        name: 'question_type',
-        comment: '题型（0单选 1多选 2判断）',
+    (0, typeorm_1.Column)("tinyint", {
+        name: "question_type",
+        comment: "题型（0单选 1多选 2判断）",
         width: 1,
     }),
     __metadata("design:type", Boolean)
 ], Question.prototype, "questionType", void 0);
 __decorate([
-    (0, typeorm_1.Column)('int', { name: 'score', comment: '题目分值' }),
+    (0, typeorm_1.Column)("int", { name: "score", comment: "题目分值" }),
     __metadata("design:type", Number)
 ], Question.prototype, "score", void 0);
 __decorate([
-    (0, typeorm_1.Column)('int', { name: 'order_num', comment: '题目顺序' }),
+    (0, typeorm_1.Column)("int", { name: "order_num", comment: "题目顺序" }),
     __metadata("design:type", Number)
 ], Question.prototype, "orderNum", void 0);
 exports.Question = Question = __decorate([
-    (0, typeorm_1.Index)('exam_id', ['examId'], {}),
-    (0, typeorm_1.Entity)('question', { schema: 'exam' })
+    (0, typeorm_1.Index)("exam_id", ["examId"], {}),
+    (0, typeorm_1.Entity)("question", { schema: "exam" })
 ], Question);
 //# sourceMappingURL=Question.entity.js.map

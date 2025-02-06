@@ -9,7 +9,7 @@ import {
   Patch,
 } from "@nestjs/common";
 import { ClassService } from "./class.service";
-import { CreateClassDto, UpdateClassDto } from "./dto/class.dto";
+import { CreateClassDto, UpdateClassDto, UserClassDto } from "./dto/class.dto";
 import {
   ApiBearerAuth,
   ApiBody,
@@ -93,5 +93,33 @@ export class ClassController {
   @ApiResponse({ status: 201, description: "成功" })
   remove(@Param("id") id: string) {
     return this.classService.delete(+id);
+  }
+
+  /**
+   * 创建学生与班级的关联
+   * @param teacherId 教师ID
+   * @param classId 班级ID
+   * @param userClassDto 学生信息
+   * @returns 创建结果
+   */
+  @Post("/createStudentClassRelation")
+  @ApiBearerAuth("jwt")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "创建学生与班级的关联" })
+  @ApiBody({
+    type: UserClassDto,
+  })
+  @ApiResponse({ status: 201, description: "创建成功" })
+  @ApiResponse({ status: 400, description: "创建失败" })
+  async createStudentClassRelation(
+    @Body("teacherId") teacherId: number,
+    @Body("classId") classId: number,
+    @Body() userClassDto: UserClassDto,
+  ) {
+    return this.classService.createStudentClassRelation(
+      teacherId,
+      classId,
+      userClassDto,
+    );
   }
 }

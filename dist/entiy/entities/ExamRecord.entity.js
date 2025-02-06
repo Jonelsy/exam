@@ -15,41 +15,41 @@ let ExamRecord = class ExamRecord {
 };
 exports.ExamRecord = ExamRecord;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)({ type: 'int', name: 'record_id', comment: '记录ID' }),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "int", name: "record_id", comment: "记录ID" }),
     __metadata("design:type", Number)
 ], ExamRecord.prototype, "recordId", void 0);
 __decorate([
-    (0, typeorm_1.Column)('int', { name: 'user_id', comment: '用户ID' }),
+    (0, typeorm_1.Column)("int", { name: "user_id", comment: "用户ID" }),
     __metadata("design:type", Number)
 ], ExamRecord.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)('int', { name: 'exam_id', comment: '考试ID' }),
+    (0, typeorm_1.Column)("int", { name: "exam_id", comment: "考试ID" }),
     __metadata("design:type", Number)
 ], ExamRecord.prototype, "examId", void 0);
 __decorate([
-    (0, typeorm_1.Column)('int', { name: 'score', nullable: true, comment: '考试成绩' }),
+    (0, typeorm_1.Column)("int", { name: "score", nullable: true, comment: "考试成绩" }),
     __metadata("design:type", Number)
 ], ExamRecord.prototype, "score", void 0);
 __decorate([
-    (0, typeorm_1.Column)('datetime', { name: 'start_time', comment: '开始时间' }),
+    (0, typeorm_1.Column)("datetime", { name: "start_time", comment: "开始时间" }),
     __metadata("design:type", Date)
 ], ExamRecord.prototype, "startTime", void 0);
 __decorate([
-    (0, typeorm_1.Column)('datetime', { name: 'end_time', comment: '结束时间' }),
+    (0, typeorm_1.Column)("datetime", { name: "end_time", comment: "结束时间" }),
     __metadata("design:type", Date)
 ], ExamRecord.prototype, "endTime", void 0);
 __decorate([
-    (0, typeorm_1.Column)('tinyint', {
-        name: 'is_passed',
+    (0, typeorm_1.Column)("tinyint", {
+        name: "is_passed",
         nullable: true,
-        comment: '是否通过',
+        comment: "是否通过",
         width: 1,
     }),
     __metadata("design:type", Boolean)
 ], ExamRecord.prototype, "isPassed", void 0);
 exports.ExamRecord = ExamRecord = __decorate([
-    (0, typeorm_1.Index)('exam_id', ['examId'], {}),
-    (0, typeorm_1.Index)('user_id', ['userId'], {}),
-    (0, typeorm_1.Entity)('exam_record', { schema: 'exam' })
+    (0, typeorm_1.Index)("exam_id", ["examId"], {}),
+    (0, typeorm_1.Index)("user_id", ["userId"], {}),
+    (0, typeorm_1.Entity)("exam_record", { schema: "exam" })
 ], ExamRecord);
 //# sourceMappingURL=ExamRecord.entity.js.map

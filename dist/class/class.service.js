@@ -17,9 +17,33 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const Class_entity_1 = require("../entiy/entities/Class.entity");
+const User_entity_1 = require("../entiy/entities/User.entity");
+const UserClass_entity_1 = require("../entiy/entities/UserClass.entity");
+const bcrypt = require("bcrypt");
 let ClassService = class ClassService {
-    constructor(classRepository) {
+    constructor(classRepository, userRepository, userClassRepository) {
         this.classRepository = classRepository;
+        this.userRepository = userRepository;
+        this.userClassRepository = userClassRepository;
+    }
+    async createStudentClassRelation(teacherId, classId, userClassDto) {
+        const hashedPassword = await bcrypt.hash(userClassDto.password, 10);
+        const newUser = this.userRepository.create({
+            ...userClassDto,
+            password: hashedPassword,
+            role: 0,
+        });
+        await this.userRepository.save(newUser);
+        const userClass = this.userClassRepository.create({
+            userId: newUser.userId,
+            classId: classId,
+        });
+        await this.userClassRepository.save(userClass);
+        return {
+            message: "学生班级关联创建成功",
+            user: newUser,
+            userClass: userClass,
+        };
     }
     async findAll() {
         return this.classRepository.find();
@@ -29,7 +53,8 @@ let ClassService = class ClassService {
     }
     async create(classData) {
         const newClass = this.classRepository.create(classData);
-        return this.classRepository.save(newClass);
+        await this.classRepository.save(newClass);
+        return { message: "新建成功" };
     }
     async update(id, classData) {
         const Class = await this.findOne(id);
@@ -47,6 +72,10 @@ exports.ClassService = ClassService;
 exports.ClassService = ClassService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(Class_entity_1.Class)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(User_entity_1.User)),
+    __param(2, (0, typeorm_1.InjectRepository)(UserClass_entity_1.UserClass)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository])
 ], ClassService);
 //# sourceMappingURL=class.service.js.map

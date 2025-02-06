@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExclusiveRoles = exports.Roles = void 0;
 const common_1 = require("@nestjs/common");
-const Roles = (...roles) => (0, common_1.SetMetadata)('roles', roles);
+const Roles = (...roles) => (0, common_1.SetMetadata)("roles", roles);
 exports.Roles = Roles;
-const ExclusiveRoles = (...roles) => (0, common_1.SetMetadata)('exclusiveRoles', roles);
+const ExclusiveRoles = (...roles) => (0, common_1.SetMetadata)("exclusiveRoles", roles);
 exports.ExclusiveRoles = ExclusiveRoles;
 //# sourceMappingURL=roles.decorator.js.map

@@ -15,60 +15,58 @@ let User = class User {
 };
 exports.User = User;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)({ type: 'int', name: 'user_id', comment: '用户ID' }),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "int", name: "user_id", comment: "用户ID" }),
     __metadata("design:type", Number)
 ], User.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)('varchar', {
-        name: 'openid',
-        unique: true,
-        comment: '微信openid',
+    (0, typeorm_1.Column)("varchar", {
+        name: "openid",
+        unique: false,
+        comment: "微信openid",
         length: 50,
     }),
     __metadata("design:type", String)
 ], User.prototype, "openid", void 0);
 __decorate([
-    (0, typeorm_1.Column)('varchar', { name: 'name', comment: '用户姓名', length: 50 }),
+    (0, typeorm_1.Column)("varchar", { name: "name", comment: "用户姓名", length: 50 }),
     __metadata("design:type", String)
 ], User.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)('varchar', { name: 'username', comment: '昵称', length: 50 }),
+    (0, typeorm_1.Column)("varchar", { name: "username", comment: "昵称", length: 50 }),
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
 __decorate([
-    (0, typeorm_1.Column)('tinyint', {
-        name: 'role',
-        comment: '角色（0学生 1教师）',
+    (0, typeorm_1.Column)("tinyint", {
+        name: "role",
+        comment: "角色（0学生 1教师）",
         width: 1,
         default: () => 0,
     }),
     __metadata("design:type", Number)
 ], User.prototype, "role", void 0);
 __decorate([
-    (0, typeorm_1.Column)('int', { name: 'class_id', nullable: true, comment: '所属班级ID' }),
+    (0, typeorm_1.Column)("int", { name: "class_id", nullable: true, comment: "所属班级ID" }),
     __metadata("design:type", Number)
 ], User.prototype, "classId", void 0);
 __decorate([
-    (0, typeorm_1.Column)('datetime', {
-        name: 'create_time',
+    (0, typeorm_1.Column)("datetime", {
+        name: "create_time",
         nullable: true,
-        comment: '创建时间',
-        default: () => 'CURRENT_TIMESTAMP',
+        comment: "创建时间",
+        default: () => "CURRENT_TIMESTAMP",
     }),
     __metadata("design:type", Date)
 ], User.prototype, "createTime", void 0);
 __decorate([
-    (0, typeorm_1.Column)('varchar', {
-        name: 'password',
-        comment: '密码',
+    (0, typeorm_1.Column)("varchar", {
+        name: "password",
+        comment: "密码",
         length: 255,
         select: false,
     }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 exports.User = User = __decorate([
-    (0, typeorm_1.Index)('fk_user_class', ['classId'], {}),
-    (0, typeorm_1.Index)('openid', ['openid'], { unique: true }),
-    (0, typeorm_1.Entity)('user', { schema: 'exam' })
+    (0, typeorm_1.Entity)("user", { schema: "exam" })
 ], User);
 //# sourceMappingURL=User.entity.js.map

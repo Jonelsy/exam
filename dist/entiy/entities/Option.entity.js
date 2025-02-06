@@ -15,28 +15,28 @@ let Option = class Option {
 };
 exports.Option = Option;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)({ type: 'int', name: 'option_id', comment: '选项ID' }),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "int", name: "option_id", comment: "选项ID" }),
     __metadata("design:type", Number)
 ], Option.prototype, "optionId", void 0);
 __decorate([
-    (0, typeorm_1.Column)('int', { name: 'question_id', comment: '题目ID' }),
+    (0, typeorm_1.Column)("int", { name: "question_id", comment: "题目ID" }),
     __metadata("design:type", Number)
 ], Option.prototype, "questionId", void 0);
 __decorate([
-    (0, typeorm_1.Column)('varchar', { name: 'content', comment: '选项内容', length: 255 }),
+    (0, typeorm_1.Column)("varchar", { name: "content", comment: "选项内容", length: 255 }),
     __metadata("design:type", String)
 ], Option.prototype, "content", void 0);
 __decorate([
-    (0, typeorm_1.Column)('tinyint', {
-        name: 'is_correct',
-        comment: '是否正确答案',
+    (0, typeorm_1.Column)("tinyint", {
+        name: "is_correct",
+        comment: "是否正确答案",
         width: 1,
         default: () => "'0'",
     }),
     __metadata("design:type", Boolean)
 ], Option.prototype, "isCorrect", void 0);
 exports.Option = Option = __decorate([
-    (0, typeorm_1.Index)('question_id', ['questionId'], {}),
-    (0, typeorm_1.Entity)('option', { schema: 'exam' })
+    (0, typeorm_1.Index)("question_id", ["questionId"], {}),
+    (0, typeorm_1.Entity)("option", { schema: "exam" })
 ], Option);
 //# sourceMappingURL=Option.entity.js.map

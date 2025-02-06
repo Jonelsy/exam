@@ -37,6 +37,9 @@ let ClassController = class ClassController {
     remove(id) {
         return this.classService.delete(+id);
     }
+    async createStudentClassRelation(teacherId, classId, userClassDto) {
+        return this.classService.createStudentClassRelation(teacherId, classId, userClassDto);
+    }
 };
 exports.ClassController = ClassController;
 __decorate([
@@ -96,6 +99,23 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ClassController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Post)("/createStudentClassRelation"),
+    (0, swagger_1.ApiBearerAuth)("jwt"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, swagger_1.ApiOperation)({ summary: "创建学生与班级的关联" }),
+    (0, swagger_1.ApiBody)({
+        type: class_dto_1.UserClassDto,
+    }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: "创建成功" }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: "创建失败" }),
+    __param(0, (0, common_1.Body)("teacherId")),
+    __param(1, (0, common_1.Body)("classId")),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Number, class_dto_1.UserClassDto]),
+    __metadata("design:returntype", Promise)
+], ClassController.prototype, "createStudentClassRelation", null);
 exports.ClassController = ClassController = __decorate([
     (0, swagger_1.ApiTags)("班级相关管理"),
     (0, common_1.Controller)("class"),

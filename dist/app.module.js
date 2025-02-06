@@ -23,13 +23,13 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
-                type: 'mysql',
-                host: 'localhost',
+                type: "mysql",
+                host: "localhost",
                 port: 3306,
-                username: 'root',
-                password: 'root',
-                database: 'exam',
-                entities: [__dirname + '/**/*.entity{.ts,.js}'],
+                username: "root",
+                password: "root",
+                database: "exam",
+                entities: [__dirname + "/**/*.entity{.ts,.js}"],
                 synchronize: true,
             }),
             class_module_1.ClassModule,

@@ -16,27 +16,27 @@ class RegisterUserDto {
 }
 exports.RegisterUserDto = RegisterUserDto;
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: '用户名', example: 'john_doe' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户名不能为空' }),
+    (0, swagger_1.ApiProperty)({ description: "用户名", example: "john_doe" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "用户名不能为空" }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RegisterUserDto.prototype, "username", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: '密码', example: '1234567' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '密码不能为空' }),
+    (0, swagger_1.ApiProperty)({ description: "密码", example: "1234567" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "密码不能为空" }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.MinLength)(6, { message: '密码长度不能小于6位' }),
+    (0, class_validator_1.MinLength)(6, { message: "密码长度不能小于6位" }),
     __metadata("design:type", String)
 ], RegisterUserDto.prototype, "password", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: '姓名', example: '何小雨' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '姓名不能为空' }),
+    (0, swagger_1.ApiProperty)({ description: "姓名", example: "何小雨" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "姓名不能为空" }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RegisterUserDto.prototype, "name", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: 'openid', example: '0' }),
-    (0, class_validator_1.IsNotEmpty)({ message: 'openid不能为空' }),
+    (0, swagger_1.ApiProperty)({ description: "openid", example: "0" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "openid不能为空" }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RegisterUserDto.prototype, "openid", void 0);
@@ -44,35 +44,35 @@ class LoginUserDto {
 }
 exports.LoginUserDto = LoginUserDto;
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: '用户名', example: 'john_doe' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户名不能为空' }),
+    (0, swagger_1.ApiProperty)({ description: "用户名", example: "john_doe" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "用户名不能为空" }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], LoginUserDto.prototype, "username", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: '密码', example: '1234567' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '密码不能为空' }),
+    (0, swagger_1.ApiProperty)({ description: "密码", example: "1234567" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "密码不能为空" }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.MinLength)(6, { message: '密码长度不能小于6位' }),
+    (0, class_validator_1.MinLength)(6, { message: "密码长度不能小于6位" }),
     __metadata("design:type", String)
 ], LoginUserDto.prototype, "password", void 0);
 class UpdateUserDto {
 }
 exports.UpdateUserDto = UpdateUserDto;
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: '用户名', example: 'john_doe' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户名不能为空' }),
+    (0, swagger_1.ApiProperty)({ description: "用户名", example: "john_doe" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "用户名不能为空" }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "username", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: '姓名', example: '何小雨' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '姓名不能为空' }),
+    (0, swagger_1.ApiProperty)({ description: "姓名", example: "何小雨" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "姓名不能为空" }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "name", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: '班级', example: 0 }),
+    (0, swagger_1.ApiProperty)({ description: "班级", example: 0 }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", Number)
 ], UpdateUserDto.prototype, "classId", void 0);
@@ -80,17 +80,17 @@ class ChangePasswordDto {
 }
 exports.ChangePasswordDto = ChangePasswordDto;
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: '旧密码', example: '1234567' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '旧密码不能为空' }),
+    (0, swagger_1.ApiProperty)({ description: "旧密码", example: "1234567" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "旧密码不能为空" }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.MinLength)(6, { message: '旧密码长度不能小于6位' }),
+    (0, class_validator_1.MinLength)(6, { message: "旧密码长度不能小于6位" }),
     __metadata("design:type", String)
 ], ChangePasswordDto.prototype, "oldPassword", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: '新密码', example: '1234567' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '新密码不能为空' }),
+    (0, swagger_1.ApiProperty)({ description: "新密码", example: "1234567" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "新密码不能为空" }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.MinLength)(6, { message: '新密码长度不能小于6位' }),
+    (0, class_validator_1.MinLength)(6, { message: "新密码长度不能小于6位" }),
     __metadata("design:type", String)
 ], ChangePasswordDto.prototype, "newPassword", void 0);
 //# sourceMappingURL=register-user.dto.js.map

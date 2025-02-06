@@ -16,7 +16,7 @@ exports.ExamModule = ExamModule;
 exports.ExamModule = ExamModule = __decorate([
     (0, common_1.Module)({
         controllers: [exam_controller_1.ExamController],
-        providers: [exam_service_1.ExamService]
+        providers: [exam_service_1.ExamService],
     })
 ], ExamModule);
 //# sourceMappingURL=exam.module.js.map

@@ -15,20 +15,20 @@ let ClassExam = class ClassExam {
 };
 exports.ClassExam = ClassExam;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)({ type: 'int', name: 'id', comment: '关联ID' }),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "int", name: "id", comment: "关联ID" }),
     __metadata("design:type", Number)
 ], ClassExam.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)('int', { name: 'class_id', comment: '班级ID' }),
+    (0, typeorm_1.Column)("int", { name: "class_id", comment: "班级ID" }),
     __metadata("design:type", Number)
 ], ClassExam.prototype, "classId", void 0);
 __decorate([
-    (0, typeorm_1.Column)('int', { name: 'exam_id', comment: '考试ID' }),
+    (0, typeorm_1.Column)("int", { name: "exam_id", comment: "考试ID" }),
     __metadata("design:type", Number)
 ], ClassExam.prototype, "examId", void 0);
 exports.ClassExam = ClassExam = __decorate([
-    (0, typeorm_1.Index)('exam_id', ['examId'], {}),
-    (0, typeorm_1.Index)('uk_class_exam', ['classId', 'examId'], { unique: true }),
-    (0, typeorm_1.Entity)('class_exam', { schema: 'exam' })
+    (0, typeorm_1.Index)("exam_id", ["examId"], {}),
+    (0, typeorm_1.Index)("uk_class_exam", ["classId", "examId"], { unique: true }),
+    (0, typeorm_1.Entity)("class_exam", { schema: "exam" })
 ], ClassExam);
 //# sourceMappingURL=ClassExam.entity.js.map

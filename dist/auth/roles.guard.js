@@ -17,17 +17,17 @@ let RolesGuard = class RolesGuard {
         this.reflector = reflector;
     }
     canActivate(context) {
-        const requiredRoles = this.reflector.get('roles', context.getHandler());
+        const requiredRoles = this.reflector.get("roles", context.getHandler());
         if (!requiredRoles) {
             return true;
         }
         const request = context.switchToHttp().getRequest();
         const user = request.user;
         if (!user || !user.role) {
-            throw new common_1.ForbiddenException('没有权限访问该接口');
+            throw new common_1.ForbiddenException("没有权限访问该接口");
         }
         if (!requiredRoles.includes(user.role)) {
-            throw new common_1.ForbiddenException('没有权限访问该接口');
+            throw new common_1.ForbiddenException("没有权限访问该接口");
         }
         return true;
     }

@@ -1,6 +1,6 @@
 export declare class User {
     userId: number;
-    openid: string;
+    openid: string | null;
     name: string;
     username: string;
     role: number;

@@ -3,8 +3,8 @@ import {
   ExecutionContext,
   ForbiddenException,
   Injectable,
-} from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
+} from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -12,7 +12,7 @@ export class RolesGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     const requiredRoles = this.reflector.get<number[]>(
-      'roles',
+      "roles",
       context.getHandler(),
     );
 
@@ -24,11 +24,11 @@ export class RolesGuard implements CanActivate {
     const user = request.user;
 
     if (!user || !user.role) {
-      throw new ForbiddenException('没有权限访问该接口');
+      throw new ForbiddenException("没有权限访问该接口");
     }
 
     if (!requiredRoles.includes(user.role)) {
-      throw new ForbiddenException('没有权限访问该接口');
+      throw new ForbiddenException("没有权限访问该接口");
     }
 
     return true;

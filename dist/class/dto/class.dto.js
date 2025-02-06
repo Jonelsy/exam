@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateClassDto = exports.CreateClassDto = void 0;
+exports.UserClassDto = exports.UpdateClassDto = exports.CreateClassDto = void 0;
 const class_validator_1 = require("class-validator");
 const swagger_1 = require("@nestjs/swagger");
 class CreateClassDto {
@@ -36,4 +36,44 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateClassDto.prototype, "className", void 0);
+class UserClassDto {
+}
+exports.UserClassDto = UserClassDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "用户名", example: "john_doe" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "用户名不能为空" }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UserClassDto.prototype, "username", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "密码", example: "1234567" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "密码不能为空" }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(6, { message: "密码长度不能小于6位" }),
+    __metadata("design:type", String)
+], UserClassDto.prototype, "password", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "姓名", example: "何小雨" }),
+    (0, class_validator_1.IsNotEmpty)({ message: "姓名不能为空" }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UserClassDto.prototype, "name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "openid", example: null }),
+    (0, class_validator_1.IsNotEmpty)({ message: "openid学生登陆后补齐" }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UserClassDto.prototype, "openid", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "teacherId", example: 8 }),
+    (0, class_validator_1.IsNotEmpty)({ message: "teacherId不能为空" }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", Number)
+], UserClassDto.prototype, "teacherId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "classId", example: 3 }),
+    (0, class_validator_1.IsNotEmpty)({ message: "classId不能为空" }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", Number)
+], UserClassDto.prototype, "classId", void 0);
 //# sourceMappingURL=class.dto.js.map
