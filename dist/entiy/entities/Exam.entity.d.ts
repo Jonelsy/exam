@@ -9,4 +9,5 @@ export declare class Exam {
     isLimit: boolean;
     allowTimes: number | null;
     createTime: Date | null;
+    teacherId: number | null;
 }

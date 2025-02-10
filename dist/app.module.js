@@ -31,6 +31,7 @@ exports.AppModule = AppModule = __decorate([
                 database: "exam",
                 entities: [__dirname + "/**/*.entity{.ts,.js}"],
                 synchronize: true,
+                logging: false,
             }),
             class_module_1.ClassModule,
             exam_module_1.ExamModule,

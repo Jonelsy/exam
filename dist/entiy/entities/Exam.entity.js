@@ -69,6 +69,14 @@ __decorate([
     }),
     __metadata("design:type", Date)
 ], Exam.prototype, "createTime", void 0);
+__decorate([
+    (0, typeorm_1.Column)("int", {
+        name: "teacher_id",
+        nullable: true,
+        comment: "考试创建人ID",
+    }),
+    __metadata("design:type", Number)
+], Exam.prototype, "teacherId", void 0);
 exports.Exam = Exam = __decorate([
     (0, typeorm_1.Entity)("exam", { schema: "exam" })
 ], Exam);

@@ -46,4 +46,11 @@ export class Exam {
     default: () => "CURRENT_TIMESTAMP",
   })
   createTime: Date | null;
+
+  @Column("int", {
+    name: "teacher_id",
+    nullable: true,
+    comment: "考试创建人ID",
+  })
+  teacherId: number | null;
 }

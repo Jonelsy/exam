@@ -18,6 +18,7 @@ import { UserModule } from "./user/user.module";
       database: "exam",
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
       synchronize: true,
+      logging: false, // 启用日志记录
     }),
     ClassModule,
     ExamModule,

@@ -9,6 +9,7 @@ export class User {
     name: "openid",
     unique: false,
     comment: "微信openid",
+    nullable: true,
     length: 50,
   })
   openid: string | null;
