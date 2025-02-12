@@ -16,12 +16,12 @@ export class Question {
   @Column("text", { name: "content", comment: "题目内容" })
   content: string;
 
-  @Column("tinyint", {
+  @Column("int", {
     name: "question_type",
     comment: "题型（0单选 1多选 2判断）",
-    width: 1,
+    width: 11,
   })
-  questionType: boolean;
+  questionType: number;
 
   @Column("int", { name: "score", comment: "题目分值" })
   score: number;

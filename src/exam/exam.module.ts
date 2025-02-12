@@ -3,11 +3,12 @@ import { ExamController } from "./exam.controller";
 import { ExamService } from "./exam.service";
 import { Exam } from "../entiy/entities/Exam.entity";
 import { ClassExam } from "../entiy/entities/ClassExam.entity";
+import { Question } from "src/entiy/entities/Question.entity";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 @Module({
   controllers: [ExamController],
   providers: [ExamService],
-  imports: [TypeOrmModule.forFeature([Exam, ClassExam])],
+  imports: [TypeOrmModule.forFeature([Exam, ClassExam, Question])],
 })
 export class ExamModule {}

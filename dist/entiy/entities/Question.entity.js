@@ -31,12 +31,12 @@ __decorate([
     __metadata("design:type", String)
 ], Question.prototype, "content", void 0);
 __decorate([
-    (0, typeorm_1.Column)("tinyint", {
+    (0, typeorm_1.Column)("int", {
         name: "question_type",
         comment: "题型（0单选 1多选 2判断）",
-        width: 1,
+        width: 11,
     }),
-    __metadata("design:type", Boolean)
+    __metadata("design:type", Number)
 ], Question.prototype, "questionType", void 0);
 __decorate([
     (0, typeorm_1.Column)("int", { name: "score", comment: "题目分值" }),

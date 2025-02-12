@@ -19,6 +19,7 @@ const exam_dto_1 = require("./dto/exam.dto");
 const exam_dto_2 = require("./dto/exam.dto");
 const swagger_1 = require("@nestjs/swagger");
 const passport_1 = require("@nestjs/passport");
+const question_dto_1 = require("./dto/question.dto");
 let ExamController = class ExamController {
     constructor(examService) {
         this.examService = examService;
@@ -40,6 +41,21 @@ let ExamController = class ExamController {
     }
     remove(id) {
         return this.examService.remove(+id);
+    }
+    createQuestion(createQuestionDto) {
+        return this.examService.createQuestion(createQuestionDto);
+    }
+    getQuestionsByExam(examId, Page, PageSize) {
+        return this.examService.findAllQuestions(+examId, +Page, +PageSize);
+    }
+    getQuestion(id) {
+        return this.examService.findOneQuestion(+id);
+    }
+    updateQuestion(id, updateQuestionDto) {
+        return this.examService.updateQuestion(+id, updateQuestionDto);
+    }
+    deleteQuestion(id) {
+        return this.examService.removeQuestion(+id);
     }
 };
 exports.ExamController = ExamController;
@@ -114,6 +130,66 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ExamController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Post)("/question"),
+    (0, swagger_1.ApiBearerAuth)("jwt"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, swagger_1.ApiOperation)({ summary: "创建题目" }),
+    (0, swagger_1.ApiBody)({ type: question_dto_1.CreateQuestionDto }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: "创建成功" }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: "创建失败" }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [question_dto_1.CreateQuestionDto]),
+    __metadata("design:returntype", void 0)
+], ExamController.prototype, "createQuestion", null);
+__decorate([
+    (0, common_1.Get)("/question/:examId/:Page/:PageSize"),
+    (0, swagger_1.ApiBearerAuth)("jwt"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, swagger_1.ApiOperation)({ summary: "获取考试的所有题目" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
+    __param(0, (0, common_1.Param)("examId")),
+    __param(1, (0, common_1.Param)("Page")),
+    __param(2, (0, common_1.Param)("PageSize")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Number, Number]),
+    __metadata("design:returntype", void 0)
+], ExamController.prototype, "getQuestionsByExam", null);
+__decorate([
+    (0, common_1.Get)("/question/:id"),
+    (0, swagger_1.ApiBearerAuth)("jwt"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, swagger_1.ApiOperation)({ summary: "获取单个题目信息" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ExamController.prototype, "getQuestion", null);
+__decorate([
+    (0, common_1.Patch)("/question/:id"),
+    (0, swagger_1.ApiBearerAuth)("jwt"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, swagger_1.ApiOperation)({ summary: "更新题目信息" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, question_dto_1.UpdateQuestionDto]),
+    __metadata("design:returntype", void 0)
+], ExamController.prototype, "updateQuestion", null);
+__decorate([
+    (0, common_1.Delete)("/question/:id"),
+    (0, swagger_1.ApiBearerAuth)("jwt"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, swagger_1.ApiOperation)({ summary: "删除题目" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ExamController.prototype, "deleteQuestion", null);
 exports.ExamController = ExamController = __decorate([
     (0, swagger_1.ApiTags)("考试管理"),
     (0, common_1.Controller)("exam"),

@@ -18,10 +18,12 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const Exam_entity_1 = require("../entiy/entities/Exam.entity");
 const ClassExam_entity_1 = require("../entiy/entities/ClassExam.entity");
+const Question_entity_1 = require("../entiy/entities/Question.entity");
 let ExamService = class ExamService {
-    constructor(examRepository, classExamRepository) {
+    constructor(examRepository, classExamRepository, questionRepository) {
         this.examRepository = examRepository;
         this.classExamRepository = classExamRepository;
+        this.questionRepository = questionRepository;
     }
     async create(createExamDto) {
         const exam = this.examRepository.create(createExamDto);
@@ -66,6 +68,40 @@ let ExamService = class ExamService {
             throw new common_1.NotFoundException(` ${id} 不存在`);
         }
     }
+    async createQuestion(createQuestionDto) {
+        const question = this.questionRepository.create(createQuestionDto);
+        return await this.questionRepository.save(question);
+    }
+    async findAllQuestions(examId, page, pageSize) {
+        const [result, count] = await this.questionRepository.findAndCount({
+            where: { examId },
+            order: { orderNum: "ASC" },
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+        });
+        const totalPages = Math.ceil(count / pageSize);
+        return { questions: result, total: count, totalPages };
+    }
+    async findOneQuestion(id) {
+        const question = await this.questionRepository.findOne({
+            where: { questionId: id },
+        });
+        if (!question) {
+            throw new common_1.NotFoundException(`题目 ${id} 不存在`);
+        }
+        return question;
+    }
+    async updateQuestion(id, updateQuestionDto) {
+        const question = await this.findOneQuestion(id);
+        const updatedQuestion = Object.assign(question, updateQuestionDto);
+        return await this.questionRepository.save(updatedQuestion);
+    }
+    async removeQuestion(id) {
+        const result = await this.questionRepository.delete(id);
+        if (result.affected === 0) {
+            throw new common_1.NotFoundException(`题目 ${id} 不存在`);
+        }
+    }
     async bindExamToClass(examId, classId) {
         const exam = await this.examRepository.findOne({ where: { examId } });
         if (!exam) {
@@ -83,7 +119,9 @@ exports.ExamService = ExamService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(Exam_entity_1.Exam)),
     __param(1, (0, typeorm_1.InjectRepository)(ClassExam_entity_1.ClassExam)),
+    __param(2, (0, typeorm_1.InjectRepository)(Question_entity_1.Question)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
         typeorm_2.Repository])
 ], ExamService);
 //# sourceMappingURL=exam.service.js.map

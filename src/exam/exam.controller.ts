@@ -16,12 +16,11 @@ import {
   ApiBearerAuth,
   ApiBody,
   ApiOperation,
-  ApiProperty,
-  ApiQuery,
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
 import { AuthGuard } from "@nestjs/passport";
+import { CreateQuestionDto, UpdateQuestionDto } from "./dto/question.dto";
 
 @ApiTags("考试管理")
 @Controller("exam")
@@ -117,5 +116,86 @@ export class ExamController {
   @ApiResponse({ status: 200, description: "成功" })
   remove(@Param("id") id: string) {
     return this.examService.remove(+id);
+  }
+
+  /**
+   * 创建题目
+   * @param examId 考试ID
+   * @param createQuestionDto 题目信息
+   * @returns 创建的题目
+   */
+  @Post("/question")
+  @ApiBearerAuth("jwt")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "创建题目" })
+  @ApiBody({ type: CreateQuestionDto })
+  @ApiResponse({ status: 201, description: "创建成功" })
+  @ApiResponse({ status: 400, description: "创建失败" })
+  createQuestion(@Body() createQuestionDto: CreateQuestionDto) {
+    return this.examService.createQuestion(createQuestionDto);
+  }
+
+  /**
+   * 获取某个考试的所有题目
+   * @param examId 考试ID
+   * @returns 题目列表
+   */
+  @Get("/question/:examId/:Page/:PageSize")
+  @ApiBearerAuth("jwt")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "获取考试的所有题目" })
+  @ApiResponse({ status: 200, description: "成功" })
+  getQuestionsByExam(
+    @Param("examId") examId: string,
+    @Param("Page") Page: number,
+    @Param("PageSize") PageSize: number,
+  ) {
+    return this.examService.findAllQuestions(+examId, +Page, +PageSize);
+  }
+
+  /**
+   * 获取单个题目
+   * @param id 题目ID
+   * @returns 题目信息
+   */
+  @Get("/question/:id")
+  @ApiBearerAuth("jwt")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "获取单个题目信息" })
+  @ApiResponse({ status: 200, description: "成功" })
+  getQuestion(@Param("id") id: string) {
+    return this.examService.findOneQuestion(+id);
+  }
+
+  /**
+   * 更新题目
+   * @param id 题目ID
+   * @param updateQuestionDto 更新信息
+   * @returns 更新后的题目
+   */
+  @Patch("/question/:id")
+  @ApiBearerAuth("jwt")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "更新题目信息" })
+  @ApiResponse({ status: 200, description: "成功" })
+  updateQuestion(
+    @Param("id") id: string,
+    @Body() updateQuestionDto: UpdateQuestionDto,
+  ) {
+    return this.examService.updateQuestion(+id, updateQuestionDto);
+  }
+
+  /**
+   * 删除题目
+   * @param id 题目ID
+   * @returns 删除结果
+   */
+  @Delete("/question/:id")
+  @ApiBearerAuth("jwt")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "删除题目" })
+  @ApiResponse({ status: 200, description: "成功" })
+  deleteQuestion(@Param("id") id: string) {
+    return this.examService.removeQuestion(+id);
   }
 }
