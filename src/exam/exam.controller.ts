@@ -21,6 +21,7 @@ import {
 } from "@nestjs/swagger";
 import { AuthGuard } from "@nestjs/passport";
 import { CreateQuestionDto, UpdateQuestionDto } from "./dto/question.dto";
+import { CreateOptionDto, UpdateOptionDto } from "./dto/option.dto";
 
 @ApiTags("考试管理")
 @Controller("exam")
@@ -197,5 +198,67 @@ export class ExamController {
   @ApiResponse({ status: 200, description: "成功" })
   deleteQuestion(@Param("id") id: string) {
     return this.examService.removeQuestion(+id);
+  }
+
+  /**
+   * 创建选项
+   * @param createOptionDto 选项信息
+   * @returns 创建的选项
+   */
+  @Post("/option")
+  @ApiBearerAuth("jwt")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "创建选项" })
+  @ApiBody({ type: CreateOptionDto })
+  @ApiResponse({ status: 201, description: "创建成功" })
+  @ApiResponse({ status: 400, description: "创建失败" })
+  createOption(@Body() createOptionDto: CreateOptionDto) {
+    return this.examService.createOption(createOptionDto);
+  }
+
+  /**
+   * 获取单个选项
+   * @param id 选项ID
+   * @returns 选项信息
+   */
+  @Get("/option/:id")
+  @ApiBearerAuth("jwt")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "获取单个选项信息" })
+  @ApiResponse({ status: 200, description: "成功" })
+  getOption(@Param("id") id: string) {
+    return this.examService.getOptionById(+id);
+  }
+
+  /**
+   * 更新选项
+   * @param id 选项ID
+   * @param updateOptionDto 更新信息
+   * @returns 更新后的选项
+   */
+  @Patch("/option/:id")
+  @ApiBearerAuth("jwt")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "更新选项信息" })
+  @ApiResponse({ status: 200, description: "成功" })
+  updateOption(
+    @Param("id") id: string,
+    @Body() updateOptionDto: UpdateOptionDto,
+  ) {
+    return this.examService.updateOption(+id, updateOptionDto);
+  }
+
+  /**
+   * 删除选项
+   * @param id 选项ID
+   * @returns 删除结果
+   */
+  @Delete("/option/:id")
+  @ApiBearerAuth("jwt")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "删除选项" })
+  @ApiResponse({ status: 200, description: "成功" })
+  deleteOption(@Param("id") id: string) {
+    return this.examService.deleteOption(+id);
   }
 }

@@ -20,6 +20,7 @@ const exam_dto_2 = require("./dto/exam.dto");
 const swagger_1 = require("@nestjs/swagger");
 const passport_1 = require("@nestjs/passport");
 const question_dto_1 = require("./dto/question.dto");
+const option_dto_1 = require("./dto/option.dto");
 let ExamController = class ExamController {
     constructor(examService) {
         this.examService = examService;
@@ -56,6 +57,18 @@ let ExamController = class ExamController {
     }
     deleteQuestion(id) {
         return this.examService.removeQuestion(+id);
+    }
+    createOption(createOptionDto) {
+        return this.examService.createOption(createOptionDto);
+    }
+    getOption(id) {
+        return this.examService.getOptionById(+id);
+    }
+    updateOption(id, updateOptionDto) {
+        return this.examService.updateOption(+id, updateOptionDto);
+    }
+    deleteOption(id) {
+        return this.examService.deleteOption(+id);
     }
 };
 exports.ExamController = ExamController;
@@ -190,6 +203,53 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ExamController.prototype, "deleteQuestion", null);
+__decorate([
+    (0, common_1.Post)("/option"),
+    (0, swagger_1.ApiBearerAuth)("jwt"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, swagger_1.ApiOperation)({ summary: "创建选项" }),
+    (0, swagger_1.ApiBody)({ type: option_dto_1.CreateOptionDto }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: "创建成功" }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: "创建失败" }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [option_dto_1.CreateOptionDto]),
+    __metadata("design:returntype", void 0)
+], ExamController.prototype, "createOption", null);
+__decorate([
+    (0, common_1.Get)("/option/:id"),
+    (0, swagger_1.ApiBearerAuth)("jwt"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, swagger_1.ApiOperation)({ summary: "获取单个选项信息" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ExamController.prototype, "getOption", null);
+__decorate([
+    (0, common_1.Patch)("/option/:id"),
+    (0, swagger_1.ApiBearerAuth)("jwt"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, swagger_1.ApiOperation)({ summary: "更新选项信息" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, option_dto_1.UpdateOptionDto]),
+    __metadata("design:returntype", void 0)
+], ExamController.prototype, "updateOption", null);
+__decorate([
+    (0, common_1.Delete)("/option/:id"),
+    (0, swagger_1.ApiBearerAuth)("jwt"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    (0, swagger_1.ApiOperation)({ summary: "删除选项" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ExamController.prototype, "deleteOption", null);
 exports.ExamController = ExamController = __decorate([
     (0, swagger_1.ApiTags)("考试管理"),
     (0, common_1.Controller)("exam"),

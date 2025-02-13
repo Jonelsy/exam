@@ -19,11 +19,13 @@ const typeorm_2 = require("typeorm");
 const Exam_entity_1 = require("../entiy/entities/Exam.entity");
 const ClassExam_entity_1 = require("../entiy/entities/ClassExam.entity");
 const Question_entity_1 = require("../entiy/entities/Question.entity");
+const Option_entity_1 = require("../entiy/entities/Option.entity");
 let ExamService = class ExamService {
-    constructor(examRepository, classExamRepository, questionRepository) {
+    constructor(examRepository, classExamRepository, questionRepository, optionRepository) {
         this.examRepository = examRepository;
         this.classExamRepository = classExamRepository;
         this.questionRepository = questionRepository;
+        this.optionRepository = optionRepository;
     }
     async create(createExamDto) {
         const exam = this.examRepository.create(createExamDto);
@@ -79,8 +81,23 @@ let ExamService = class ExamService {
             skip: (page - 1) * pageSize,
             take: pageSize,
         });
+        const questionIds = result.map((question) => question.questionId);
+        const options = await this.optionRepository.find({
+            where: { questionId: (0, typeorm_2.In)(questionIds) },
+        });
+        const optionsMap = options.reduce((map, option) => {
+            if (!map[option.questionId]) {
+                map[option.questionId] = [];
+            }
+            map[option.questionId].push(option);
+            return map;
+        }, {});
+        const questionsWithOptions = result.map((question) => ({
+            ...question,
+            options: optionsMap[question.questionId] || [],
+        }));
         const totalPages = Math.ceil(count / pageSize);
-        return { questions: result, total: count, totalPages };
+        return { questions: questionsWithOptions, total: count, totalPages };
     }
     async findOneQuestion(id) {
         const question = await this.questionRepository.findOne({
@@ -102,6 +119,45 @@ let ExamService = class ExamService {
             throw new common_1.NotFoundException(`题目 ${id} 不存在`);
         }
     }
+    async createOption(createOptionDto) {
+        const question = await this.questionRepository.findOne({
+            where: { questionId: createOptionDto.questionId },
+        });
+        if (!question) {
+            throw new common_1.NotFoundException(`题目 ${createOptionDto.questionId} 不存在`);
+        }
+        if (question.questionType === 0) {
+            const options = await this.optionRepository.find({
+                where: { questionId: createOptionDto.questionId },
+            });
+            const hasCorrectAnswer = options.some((option) => option.isCorrect);
+            if (hasCorrectAnswer && createOptionDto.isCorrect) {
+                throw new common_1.NotFoundException("单选题只能有一个正确答案");
+            }
+        }
+        const option = this.optionRepository.create(createOptionDto);
+        return await this.optionRepository.save(option);
+    }
+    async getOptionById(id) {
+        const option = await this.optionRepository.findOne({
+            where: { optionId: id },
+        });
+        if (!option) {
+            throw new common_1.NotFoundException(`选项 ${id} 不存在`);
+        }
+        return option;
+    }
+    async updateOption(id, updateOptionDto) {
+        const option = await this.getOptionById(id);
+        const updatedOption = Object.assign(option, updateOptionDto);
+        return await this.optionRepository.save(updatedOption);
+    }
+    async deleteOption(id) {
+        const result = await this.optionRepository.delete(id);
+        if (result.affected === 0) {
+            throw new common_1.NotFoundException(`选项 ${id} 不存在`);
+        }
+    }
     async bindExamToClass(examId, classId) {
         const exam = await this.examRepository.findOne({ where: { examId } });
         if (!exam) {
@@ -120,7 +176,9 @@ exports.ExamService = ExamService = __decorate([
     __param(0, (0, typeorm_1.InjectRepository)(Exam_entity_1.Exam)),
     __param(1, (0, typeorm_1.InjectRepository)(ClassExam_entity_1.ClassExam)),
     __param(2, (0, typeorm_1.InjectRepository)(Question_entity_1.Question)),
+    __param(3, (0, typeorm_1.InjectRepository)(Option_entity_1.Option)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
         typeorm_2.Repository,
         typeorm_2.Repository])
 ], ExamService);
