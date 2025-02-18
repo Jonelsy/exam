@@ -7,4 +7,5 @@ export declare class User {
     classId: number | null;
     createTime: Date | null;
     password: string;
+    teacherId: number | null;
 }

@@ -9,7 +9,12 @@ import {
   Patch,
 } from "@nestjs/common";
 import { ClassService } from "./class.service";
-import { CreateClassDto, UpdateClassDto, UserClassDto } from "./dto/class.dto";
+import {
+  CreateClassDto,
+  UpdateClassDto,
+  UserClassDto,
+  getClassDto,
+} from "./dto/class.dto";
 import {
   ApiBearerAuth,
   ApiBody,
@@ -28,7 +33,7 @@ export class ClassController {
    * @param createClassDto 班级信息
    * @returns 创建的班级
    */
-  @Post("/class/createClass")
+  @Post("/createClass")
   @ApiBearerAuth("jwt")
   @UseGuards(AuthGuard("jwt"))
   @ApiOperation({ summary: "创建班级" })
@@ -43,13 +48,13 @@ export class ClassController {
    * 获取所有班级
    * @returns 班级列表
    */
-  @Get("/class/getClass")
+  @Post("/getClass")
   @ApiBearerAuth("jwt")
   @UseGuards(AuthGuard("jwt"))
   @ApiOperation({ summary: "获取班级列表" })
   @ApiResponse({ status: 201, description: "成功" })
-  findAll() {
-    return this.classService.findAll();
+  findAll(@Body() item: getClassDto) {
+    return this.classService.findAll(item);
   }
 
   /**

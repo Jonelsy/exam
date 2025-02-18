@@ -16,7 +16,7 @@
           </el-form-item>
           <el-form-item>
             <div class="formButton">
-              <el-button :loading="loading" type="primary" @click="loginSub">登录</el-button>
+              <el-button :loading="loading" type="primary" @click="login">登录</el-button>
               <el-button @click="$router.push('/signin')">注册</el-button>
             </div>
           </el-form-item>
@@ -96,7 +96,7 @@
   }
   let loading = ref(false)
   //登录
-  const loginSub = async () => {
+  const login = async () => {
     loginForms.value.validate().then(() => {
       loading.value = true
       //调用仓库方法

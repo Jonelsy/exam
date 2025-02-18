@@ -45,8 +45,18 @@ let ClassService = class ClassService {
             userClass: userClass,
         };
     }
-    async findAll() {
-        return this.classRepository.find();
+    async findAll(getClassDto) {
+        const query = this.classRepository
+            .createQueryBuilder("class")
+            .skip((getClassDto.page - 1) * getClassDto.pageSize)
+            .take(getClassDto.pageSize);
+        if (getClassDto.search) {
+            query.where("class.className LIKE :search", {
+                search: `%${getClassDto.search}%`,
+            });
+        }
+        const [data, total] = await query.getManyAndCount();
+        return { data, total };
     }
     async findOne(id) {
         return this.classRepository.findOne({ where: { classId: id } });

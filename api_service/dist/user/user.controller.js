@@ -29,8 +29,8 @@ let UserController = class UserController {
     async login(item) {
         return this.userService.login(item.username, item.password);
     }
-    async findAll() {
-        return this.userService.findAll();
+    async findAll(item) {
+        return this.userService.findAll(item);
     }
     async findOne(id) {
         return this.userService.findOne(+id);
@@ -74,13 +74,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "login", null);
 __decorate([
-    (0, common_1.Get)("/userList"),
-    (0, swagger_1.ApiOperation)({ summary: "获取所有用户" }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: "成功获取用户列表" }),
+    (0, common_1.Post)("/userList"),
+    (0, swagger_1.ApiOperation)({ summary: "获取老师名下所有学生" }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: "成功获取学生列表" }),
     (0, swagger_1.ApiBearerAuth)("jwt"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [register_user_dto_1.getStudentDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "findAll", null);
 __decorate([

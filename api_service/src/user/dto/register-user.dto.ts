@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MinLength } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, MinLength } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 export class RegisterUserDto {
   @ApiProperty({ description: "用户名", example: "john_doe" })
@@ -21,6 +21,16 @@ export class RegisterUserDto {
   @IsNotEmpty({ message: "openid不能为空" })
   @IsString()
   openid: string;
+
+  @ApiProperty({ description: "classId", example: 0 })
+  @IsNotEmpty({ message: "classId不能为空" })
+  @IsNumber()
+  class_id: number;
+
+  @ApiProperty({ description: "teacherId", example: 8 })
+  @IsNotEmpty({ message: "teacherId不能为空" })
+  @IsNumber()
+  teacherId: number;
 }
 export class LoginUserDto {
   @ApiProperty({ description: "用户名", example: "john_doe" })
@@ -62,4 +72,25 @@ export class ChangePasswordDto {
   @IsString()
   @MinLength(6, { message: "新密码长度不能小于6位" })
   newPassword: string;
+}
+
+export class getStudentDto {
+  @ApiProperty({ description: "page", example: 1 })
+  @IsNotEmpty({ message: "cpage不能为空" })
+  @IsNumber()
+  page: number;
+
+  @ApiProperty({ description: "pageSize", example: 10 })
+  @IsNotEmpty({ message: "pageSize不能为空" })
+  @IsNumber()
+  pageSize: number;
+
+  @ApiProperty({ description: "teacherId", example: 8 })
+  @IsNotEmpty({ message: "teacherId不能为空" })
+  @IsNumber()
+  teacherId: number;
+
+  @ApiProperty({ description: "search", example: "" })
+  @IsString()
+  search?: string;
 }

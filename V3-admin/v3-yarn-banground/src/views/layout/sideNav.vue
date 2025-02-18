@@ -4,7 +4,7 @@
         <img src="../../assets/logo.png">
       </div>
       <div class="title">
-        <h1>高考志愿填报辅助系统</h1>
+        <h1>在线考试后台管理系统</h1>
       </div>
     </div>
       <el-scrollbar class="scrollNav">
@@ -35,11 +35,15 @@
           <el-menu-item index="/school">
             <el-icon><School/></el-icon>
             <template #title><span>院校查询</span></template>
-          </el-menu-item>
-          <el-menu-item index="/mitList">
+          </el-menu-item>-->
+          <el-menu-item index="/class">
             <el-icon><DataAnalysis/></el-icon>
-            <template #title><span>性格测试</span></template>
-          </el-menu-item> -->
+            <template #title><span>班级管理</span></template>
+          </el-menu-item> 
+          <el-menu-item index="/student">
+            <el-icon><School/></el-icon>
+            <template #title><span>学生管理</span></template>
+          </el-menu-item> 
         </el-menu>
       </el-scrollbar>
     </template>

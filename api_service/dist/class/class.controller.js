@@ -25,8 +25,8 @@ let ClassController = class ClassController {
     create(createClassDto) {
         return this.classService.create(createClassDto);
     }
-    findAll() {
-        return this.classService.findAll();
+    findAll(item) {
+        return this.classService.findAll(item);
     }
     findOne(id) {
         return this.classService.findOne(+id);
@@ -43,7 +43,7 @@ let ClassController = class ClassController {
 };
 exports.ClassController = ClassController;
 __decorate([
-    (0, common_1.Post)("/class/createClass"),
+    (0, common_1.Post)("/createClass"),
     (0, swagger_1.ApiBearerAuth)("jwt"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, swagger_1.ApiOperation)({ summary: "创建班级" }),
@@ -56,13 +56,14 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ClassController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)("/class/getClass"),
+    (0, common_1.Post)("/getClass"),
     (0, swagger_1.ApiBearerAuth)("jwt"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, swagger_1.ApiOperation)({ summary: "获取班级列表" }),
     (0, swagger_1.ApiResponse)({ status: 201, description: "成功" }),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [class_dto_1.getClassDto]),
     __metadata("design:returntype", void 0)
 ], ClassController.prototype, "findAll", null);
 __decorate([

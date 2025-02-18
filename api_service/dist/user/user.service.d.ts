@@ -18,7 +18,10 @@ export declare class UserService {
         };
         code: number;
     }>;
-    findAll(): Promise<User[]>;
+    findAll(item: any): Promise<{
+        data: User[];
+        total: number;
+    }>;
     findOne(id: number): Promise<User>;
     update(id: number, updateUserDto: any): Promise<any>;
     remove(id: number): Promise<{

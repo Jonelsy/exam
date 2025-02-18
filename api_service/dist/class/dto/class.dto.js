@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserClassDto = exports.UpdateClassDto = exports.CreateClassDto = void 0;
+exports.UserClassDto = exports.UpdateClassDto = exports.getClassDto = exports.CreateClassDto = void 0;
 const class_validator_1 = require("class-validator");
 const swagger_1 = require("@nestjs/swagger");
 class CreateClassDto {
@@ -27,6 +27,26 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", Number)
 ], CreateClassDto.prototype, "teacherId", void 0);
+class getClassDto {
+}
+exports.getClassDto = getClassDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "页数", example: 1 }),
+    (0, class_validator_1.IsNotEmpty)({ message: "page不能为空" }),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], getClassDto.prototype, "page", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "页数", example: 10 }),
+    (0, class_validator_1.IsNotEmpty)({ message: "pageSize不能为空" }),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], getClassDto.prototype, "pageSize", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "搜索内容", example: "" }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], getClassDto.prototype, "search", void 0);
 class UpdateClassDto {
 }
 exports.UpdateClassDto = UpdateClassDto;

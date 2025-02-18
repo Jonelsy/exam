@@ -21,6 +21,7 @@ import {
   LoginUserDto,
   UpdateUserDto,
   ChangePasswordDto,
+  getStudentDto,
 } from "./dto/register-user.dto";
 import { RolesGuard } from "../auth/roles.guard";
 // import { Roles, ExclusiveRoles } from "../auth/decorators/roles.decorator";
@@ -50,15 +51,13 @@ export class UserController {
     return this.userService.login(item.username, item.password);
   }
 
-  @Get("/userList")
-  @ApiOperation({ summary: "获取所有用户" })
-  @ApiResponse({ status: 200, description: "成功获取用户列表" })
-  // @Roles(0, 1)
-  // @ExclusiveRoles(0, 1)
+  @Post("/userList")
+  @ApiOperation({ summary: "获取老师名下所有学生" })
+  @ApiResponse({ status: 201, description: "成功获取学生列表" })
   @ApiBearerAuth("jwt")
   @UseGuards(AuthGuard("jwt"))
-  async findAll() {
-    return this.userService.findAll();
+  async findAll(@Body() item: getStudentDto) {
+    return this.userService.findAll(item);
   }
 
   @Get(":id")

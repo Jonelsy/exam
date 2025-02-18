@@ -2,6 +2,11 @@ export declare class CreateClassDto {
     className: string;
     teacherId: number;
 }
+export declare class getClassDto {
+    page: number;
+    pageSize: number;
+    search: string | null;
+}
 export declare class UpdateClassDto {
     className: string;
 }

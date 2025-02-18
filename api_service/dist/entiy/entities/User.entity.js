@@ -67,6 +67,10 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.Column)("int", { name: "teacher_id", nullable: true, comment: "所属教师ID" }),
+    __metadata("design:type", Number)
+], User.prototype, "teacherId", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)("user", { schema: "exam" })
 ], User);

@@ -23,6 +23,22 @@ const routes: Array<RouteRecordRaw> = [
           title:'首页'
         },
       },
+      {
+        path: '/class',
+        name: 'class',
+        component: () => import('../views/class/class.vue'),
+        meta:{
+          title:'班级管理'
+        },
+      },
+      {
+        path: '/student',
+        name: 'student',
+        component: () => import('../views/student/student.vue'),
+        meta:{
+          title:'学生管理'
+        },
+      },
     ]
   },
 ]

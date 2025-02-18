@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ChangePasswordDto = exports.UpdateUserDto = exports.LoginUserDto = exports.RegisterUserDto = void 0;
+exports.getStudentDto = exports.ChangePasswordDto = exports.UpdateUserDto = exports.LoginUserDto = exports.RegisterUserDto = void 0;
 const class_validator_1 = require("class-validator");
 const swagger_1 = require("@nestjs/swagger");
 class RegisterUserDto {
@@ -40,6 +40,18 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RegisterUserDto.prototype, "openid", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "classId", example: 0 }),
+    (0, class_validator_1.IsNotEmpty)({ message: "classId不能为空" }),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], RegisterUserDto.prototype, "class_id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "teacherId", example: 8 }),
+    (0, class_validator_1.IsNotEmpty)({ message: "teacherId不能为空" }),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], RegisterUserDto.prototype, "teacherId", void 0);
 class LoginUserDto {
 }
 exports.LoginUserDto = LoginUserDto;
@@ -93,4 +105,30 @@ __decorate([
     (0, class_validator_1.MinLength)(6, { message: "新密码长度不能小于6位" }),
     __metadata("design:type", String)
 ], ChangePasswordDto.prototype, "newPassword", void 0);
+class getStudentDto {
+}
+exports.getStudentDto = getStudentDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "page", example: 1 }),
+    (0, class_validator_1.IsNotEmpty)({ message: "cpage不能为空" }),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], getStudentDto.prototype, "page", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "pageSize", example: 10 }),
+    (0, class_validator_1.IsNotEmpty)({ message: "pageSize不能为空" }),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], getStudentDto.prototype, "pageSize", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "teacherId", example: 8 }),
+    (0, class_validator_1.IsNotEmpty)({ message: "teacherId不能为空" }),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], getStudentDto.prototype, "teacherId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "search", example: "" }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], getStudentDto.prototype, "search", void 0);
 //# sourceMappingURL=register-user.dto.js.map

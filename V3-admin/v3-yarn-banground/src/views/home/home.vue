@@ -46,7 +46,7 @@
         useruserstore.users = res.data
         useruserstore.users.header = res.data.header
         localStorage.removeItem('userId')
-        localStorage.setItem('userId', res.data.id)
+        localStorage.setItem('userId', res.data.userId)
       })
     }
     setupUser()

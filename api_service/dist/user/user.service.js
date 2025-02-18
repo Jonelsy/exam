@@ -25,7 +25,7 @@ let UserService = class UserService {
         this.jwtService = jwtService;
     }
     async register(registerUserDto) {
-        const { username, password, name, openid } = registerUserDto;
+        const { username, password, name, openid, teacherId } = registerUserDto;
         const existUser = await this.userRepository.findOne({
             where: { username },
         });
@@ -40,6 +40,7 @@ let UserService = class UserService {
             role: 0,
             openid,
             createTime: new Date(),
+            teacherId,
         });
         const item = await this.userRepository.save(user);
         return {
@@ -66,8 +67,19 @@ let UserService = class UserService {
         const token = this.jwtService.sign(payload);
         return { token, payload, code: 200 };
     }
-    async findAll() {
-        return this.userRepository.find();
+    async findAll(item) {
+        const query = this.userRepository
+            .createQueryBuilder("user")
+            .skip((item.page - 1) * item.pageSize)
+            .take(item.pageSize);
+        query.where({ role: 0, teacherId: item.teacherId });
+        if (item.search) {
+            query.where("user.name LIKE :search", {
+                search: `%${item.search}%`,
+            });
+        }
+        const [data, total] = await query.getManyAndCount();
+        return { data, total };
     }
     async findOne(id) {
         const user = await this.userRepository.findOne({ where: { userId: id } });

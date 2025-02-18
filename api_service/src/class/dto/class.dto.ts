@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MinLength } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, MinLength } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 export class CreateClassDto {
   @ApiProperty({ description: "班级名称", example: "计科三班" })
@@ -10,6 +10,22 @@ export class CreateClassDto {
   @IsNotEmpty({ message: "所属老师不能为空" })
   @IsString()
   teacherId: number;
+}
+
+export class getClassDto {
+  @ApiProperty({ description: "页数", example: 1 })
+  @IsNotEmpty({ message: "page不能为空" })
+  @IsNumber()
+  page: number;
+
+  @ApiProperty({ description: "页数", example: 10 })
+  @IsNotEmpty({ message: "pageSize不能为空" })
+  @IsNumber()
+  pageSize: number;
+
+  @ApiProperty({ description: "搜索内容", example: "" })
+  @IsString()
+  search: string | null;
 }
 
 export class UpdateClassDto {

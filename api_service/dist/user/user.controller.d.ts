@@ -1,5 +1,5 @@
 import { UserService } from "./user.service";
-import { RegisterUserDto, LoginUserDto, UpdateUserDto, ChangePasswordDto } from "./dto/register-user.dto";
+import { RegisterUserDto, LoginUserDto, UpdateUserDto, ChangePasswordDto, getStudentDto } from "./dto/register-user.dto";
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
@@ -15,7 +15,10 @@ export declare class UserController {
         };
         code: number;
     }>;
-    findAll(): Promise<import("../entiy/entities/User.entity").User[]>;
+    findAll(item: getStudentDto): Promise<{
+        data: import("../entiy/entities/User.entity").User[];
+        total: number;
+    }>;
     findOne(id: string): Promise<import("../entiy/entities/User.entity").User>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<any>;
     changePassword(id: string, changePasswordDto: ChangePasswordDto): Promise<{

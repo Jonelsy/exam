@@ -9,7 +9,10 @@ export declare class ClassService {
     private userClassRepository;
     constructor(classRepository: Repository<Class>, userRepository: Repository<User>, userClassRepository: Repository<UserClass>);
     createStudentClassRelation(teacherId: number, classId: number, userClassDto: UserClassDto): Promise<any>;
-    findAll(): Promise<Class[]>;
+    findAll(getClassDto: any): Promise<{
+        data: Class[];
+        total: number;
+    }>;
     findOne(id: number): Promise<Class>;
     create(classData: Partial<Class>): Promise<any>;
     update(id: number, classData: Partial<Class>): Promise<any>;

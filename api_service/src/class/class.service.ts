@@ -46,9 +46,21 @@ export class ClassService {
     };
   }
 
-  // 获取所有班级
-  async findAll(): Promise<Class[]> {
-    return this.classRepository.find();
+  // 获取所有班级（带分页和搜索）
+  async findAll(getClassDto): Promise<{ data: Class[]; total: number }> {
+    const query = this.classRepository
+      .createQueryBuilder("class")
+      .skip((getClassDto.page - 1) * getClassDto.pageSize)
+      .take(getClassDto.pageSize);
+
+    if (getClassDto.search) {
+      query.where("class.className LIKE :search", {
+        search: `%${getClassDto.search}%`,
+      });
+    }
+
+    const [data, total] = await query.getManyAndCount();
+    return { data, total };
   }
 
   // 根据ID获取单个班级

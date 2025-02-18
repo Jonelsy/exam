@@ -46,4 +46,7 @@ export class User {
     select: false,
   })
   password: string;
+
+  @Column("int", { name: "teacher_id", nullable: true, comment: "所属教师ID" })
+  teacherId: number | null;
 }
