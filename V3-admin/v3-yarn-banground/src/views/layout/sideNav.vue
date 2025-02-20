@@ -40,10 +40,6 @@
             <el-icon><DataAnalysis/></el-icon>
             <template #title><span>班级管理</span></template>
           </el-menu-item> 
-          <el-menu-item index="/student">
-            <el-icon><School/></el-icon>
-            <template #title><span>学生管理</span></template>
-          </el-menu-item> 
         </el-menu>
       </el-scrollbar>
     </template>

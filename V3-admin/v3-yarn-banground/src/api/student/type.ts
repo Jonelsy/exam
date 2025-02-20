@@ -3,15 +3,20 @@ export interface getType{
     search?:string,
     page:number,
     pageSize:number,
-    teacherId:number,
+    classId:number,
 }
 //定义新增
 export interface insertType{
-    className:string,
-    teacherId:number,
+    username: string,
+    name: string,
+    password: string,
+    openid: string,
+    classId: number,
+    userId: number,
 }
 
 //定义修改
 export interface updateType{
-    className?:string,
+    username: string,
+    name: string,
 }

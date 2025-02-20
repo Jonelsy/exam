@@ -72,6 +72,7 @@ let ClassService = class ClassService {
         return this.classRepository.save(updatedClass);
     }
     async delete(id) {
+        await this.userClassRepository.delete({ classId: id });
         await this.classRepository.delete(id);
         return {
             message: "删除成功",

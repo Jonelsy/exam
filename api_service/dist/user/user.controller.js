@@ -75,7 +75,7 @@ __decorate([
 ], UserController.prototype, "login", null);
 __decorate([
     (0, common_1.Post)("/userList"),
-    (0, swagger_1.ApiOperation)({ summary: "获取老师名下所有学生" }),
+    (0, swagger_1.ApiOperation)({ summary: "获取班级下所有学生" }),
     (0, swagger_1.ApiResponse)({ status: 201, description: "成功获取学生列表" }),
     (0, swagger_1.ApiBearerAuth)("jwt"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),

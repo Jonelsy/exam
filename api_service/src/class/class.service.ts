@@ -84,6 +84,9 @@ export class ClassService {
 
   // 删除班级
   async delete(id: number): Promise<any> {
+    // 先删除userClass表中所有关联记录
+    await this.userClassRepository.delete({ classId: id });
+    // 再删除班级表记录
     await this.classRepository.delete(id);
     return {
       message: "删除成功",

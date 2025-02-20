@@ -45,13 +45,7 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: "classId不能为空" }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], RegisterUserDto.prototype, "class_id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({ description: "teacherId", example: 8 }),
-    (0, class_validator_1.IsNotEmpty)({ message: "teacherId不能为空" }),
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], RegisterUserDto.prototype, "teacherId", void 0);
+], RegisterUserDto.prototype, "classId", void 0);
 class LoginUserDto {
 }
 exports.LoginUserDto = LoginUserDto;
@@ -121,11 +115,11 @@ __decorate([
     __metadata("design:type", Number)
 ], getStudentDto.prototype, "pageSize", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "teacherId", example: 8 }),
-    (0, class_validator_1.IsNotEmpty)({ message: "teacherId不能为空" }),
+    (0, swagger_1.ApiProperty)({ description: "classId", example: 1 }),
+    (0, class_validator_1.IsNotEmpty)({ message: "classId不能为空" }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], getStudentDto.prototype, "teacherId", void 0);
+], getStudentDto.prototype, "classId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ description: "search", example: "" }),
     (0, class_validator_1.IsString)(),

@@ -10,6 +10,5 @@ export interface userType {
     name?:string;
     password?:string;
     role?:string,
-    classId?:string|null,
     createTime?:string,
 }

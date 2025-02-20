@@ -20,10 +20,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       role: payload.role,
       openid: payload.openid || null,
       name: payload.name || null,
-      classId: payload.classId || null,
       createTime: payload.createTime || null,
       password: payload.password || null,
-      teacherId: payload.teacherId || null,
     };
   }
 }

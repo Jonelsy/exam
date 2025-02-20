@@ -24,6 +24,7 @@
         <el-table-column prop="createTime" label="创建时间" />
         <el-table-column label="操作" width="180">
           <template #default="scope">
+            <el-button size="small" @click="classStudent(scope.row)">查看本班学生</el-button>
             <el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>
             <el-button
               size="small"
@@ -67,11 +68,12 @@ import { ref, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getClasses, createClass, updateClass, deleteClass } from '@/api/class/index'
 import { Edit, Search} from '@element-plus/icons-vue'
+import router from '@/router'
 
 interface ClassItem {
-  id: number
-  name: string
-  description: string
+  classId: number
+  className: string
+  teacherId: number
 }
 
 const searchQuery = ref('')
@@ -110,7 +112,7 @@ const handleSearch = () => {
 
 const handleAdd = () => {
   dialogTitle.value = '新增班级'
-  form.value = { id: 0, className: '', teacherId: 0 }
+  form.value = { classId: 0, className: '', teacherId: 0 }
   dialogVisible.value = true
 }
 
@@ -122,7 +124,7 @@ const handleEdit = (row: ClassItem) => {
 
 const handleDelete = async (row: ClassItem) => {
   try {
-    await ElMessageBox.confirm('确定删除该班级吗？', '提示', {
+    await ElMessageBox.confirm('确定删除该班级吗，这么做会删除本班所有学生数据？', '提示', {
       type: 'warning'
     })
     await deleteClass(row.classId)
@@ -136,7 +138,7 @@ const handleDelete = async (row: ClassItem) => {
 const handleSubmit = async () => {
   try {
     if (form.value.classId) {
-      await updateClass(form.value.classId,form.value.className)
+      await updateClass(form.value.classId,{className:form.value.className})
     } else {
       form.value.teacherId = Number(localStorage.getItem('userId'))
       await createClass(form.value)
@@ -156,6 +158,16 @@ const handlePageChange = () => {
 const handleSizeChange = () => {
   currentPage.value = 1
   fetchData()
+}
+
+const classStudent = (row: ClassItem) => {
+  router.push({
+    path: '/student',
+    query: {
+      classId: row.classId,
+      className: row.className,
+    }
+  })
 }
 
 onMounted(() => {

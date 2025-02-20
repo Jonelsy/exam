@@ -4,8 +4,6 @@ export declare class User {
     name: string;
     username: string;
     role: number;
-    classId: number | null;
     createTime: Date | null;
     password: string;
-    teacherId: number | null;
 }

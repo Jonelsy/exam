@@ -12,5 +12,5 @@ export interface insertType{
 
 //定义修改
 export interface updateType{
-    className?:string,
+    className:string,
 }

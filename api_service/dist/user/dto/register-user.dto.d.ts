@@ -3,8 +3,7 @@ export declare class RegisterUserDto {
     password: string;
     name: string;
     openid: string;
-    class_id: number;
-    teacherId: number;
+    classId: number;
 }
 export declare class LoginUserDto {
     username: string;
@@ -22,6 +21,6 @@ export declare class ChangePasswordDto {
 export declare class getStudentDto {
     page: number;
     pageSize: number;
-    teacherId: number;
+    classId: number;
     search?: string;
 }

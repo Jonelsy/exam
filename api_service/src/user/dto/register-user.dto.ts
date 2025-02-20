@@ -25,12 +25,7 @@ export class RegisterUserDto {
   @ApiProperty({ description: "classId", example: 0 })
   @IsNotEmpty({ message: "classId不能为空" })
   @IsNumber()
-  class_id: number;
-
-  @ApiProperty({ description: "teacherId", example: 8 })
-  @IsNotEmpty({ message: "teacherId不能为空" })
-  @IsNumber()
-  teacherId: number;
+  classId: number;
 }
 export class LoginUserDto {
   @ApiProperty({ description: "用户名", example: "john_doe" })
@@ -85,10 +80,10 @@ export class getStudentDto {
   @IsNumber()
   pageSize: number;
 
-  @ApiProperty({ description: "teacherId", example: 8 })
-  @IsNotEmpty({ message: "teacherId不能为空" })
+  @ApiProperty({ description: "classId", example: 1 })
+  @IsNotEmpty({ message: "classId不能为空" })
   @IsNumber()
-  teacherId: number;
+  classId: number;
 
   @ApiProperty({ description: "search", example: "" })
   @IsString()

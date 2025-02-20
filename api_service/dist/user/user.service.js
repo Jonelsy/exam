@@ -17,15 +17,17 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const User_entity_1 = require("../entiy/entities/User.entity");
+const UserClass_entity_1 = require("../entiy/entities/UserClass.entity");
 const bcrypt = require("bcrypt");
 const jwt_1 = require("@nestjs/jwt");
 let UserService = class UserService {
-    constructor(userRepository, jwtService) {
+    constructor(userRepository, userClassRepository, jwtService) {
         this.userRepository = userRepository;
+        this.userClassRepository = userClassRepository;
         this.jwtService = jwtService;
     }
     async register(registerUserDto) {
-        const { username, password, name, openid, teacherId } = registerUserDto;
+        const { username, password, name, openid, classId } = registerUserDto;
         const existUser = await this.userRepository.findOne({
             where: { username },
         });
@@ -40,11 +42,15 @@ let UserService = class UserService {
             role: 0,
             openid,
             createTime: new Date(),
-            teacherId,
         });
-        const item = await this.userRepository.save(user);
+        const savedUser = await this.userRepository.save(user);
+        const userClass = this.userClassRepository.create({
+            userId: savedUser.userId,
+            classId: classId,
+        });
+        await this.userClassRepository.save(userClass);
         return {
-            item,
+            item: savedUser,
         };
     }
     async login(username, password) {
@@ -72,9 +78,23 @@ let UserService = class UserService {
             .createQueryBuilder("user")
             .skip((item.page - 1) * item.pageSize)
             .take(item.pageSize);
-        query.where({ role: 0, teacherId: item.teacherId });
+        query.where({ role: 0 });
+        if (item.classId) {
+            const userIds = await this.userClassRepository
+                .createQueryBuilder("userClass")
+                .select("userClass.userId")
+                .where("userClass.classId = :classId", { classId: item.classId })
+                .getRawMany();
+            const ids = userIds.map((uc) => uc.userClass_user_id);
+            if (ids.length > 0) {
+                query.andWhere("user.userId IN (:...ids)", { ids });
+            }
+            else {
+                throw new common_1.HttpException("该班级没有学生", common_1.HttpStatus.OK);
+            }
+        }
         if (item.search) {
-            query.where("user.name LIKE :search", {
+            query.andWhere("(user.name LIKE :search OR user.username LIKE :search)", {
                 search: `%${item.search}%`,
             });
         }
@@ -95,7 +115,11 @@ let UserService = class UserService {
     }
     async remove(id) {
         const user = await this.findOne(id);
+        const userClass = await this.userClassRepository.findOne({
+            where: { userId: id },
+        });
         await this.userRepository.remove(user);
+        await this.userClassRepository.remove(userClass);
         return { message: "用户删除成功" };
     }
     async changePassword(id, oldPassword, newPassword) {
@@ -120,7 +144,9 @@ exports.UserService = UserService;
 exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(User_entity_1.User)),
+    __param(1, (0, typeorm_1.InjectRepository)(UserClass_entity_1.UserClass)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
         jwt_1.JwtService])
 ], UserService);
 //# sourceMappingURL=user.service.js.map

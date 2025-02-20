@@ -22,7 +22,6 @@
           <el-table-column prop="userId" label="ID" width="80" />
           <el-table-column prop="username" label="学生用户名" />
           <el-table-column prop="name" label="学生姓名" />
-          <el-table-column prop="classId" label="所属班级" />
           <el-table-column prop="createTime" label="创建时间" />
           <el-table-column label="操作" width="180">
             <template #default="scope">
@@ -58,9 +57,6 @@
           <el-form-item label="学生账号">
             <el-input v-model="form.username" />
           </el-form-item>
-          <el-form-item label="学生密码">
-            <el-input v-model="form.password" />
-          </el-form-item>
         </el-form>
         <template #footer>
           <el-button @click="dialogVisible = false">取消</el-button>
@@ -71,19 +67,20 @@
   </template>
   
   <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
-  import { ElMessage, ElMessageBox } from 'element-plus'
-  import { getStudent, createStudent, updateStudent, deleteStudent } from '@/api/student/index'
-  import { Edit, Search} from '@element-plus/icons-vue'
+import { ref, onMounted } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { getStudent, createStudent, updateStudent, deleteStudent } from '@/api/student/index'
+import { Edit, Search} from '@element-plus/icons-vue'
+import { useRoute } from 'vue-router'
   
   interface StudentItem {
-    teacherId: number,
-      username: string,
-      name: string,
-      password: string,
-      openid: number,
-      class_id: number,
-      userId: number
+    username: string,
+    name: string,
+    password: string,
+    openid: string,
+    classId: number,
+    userId: number,
+    className?: string
   }
   
   const searchQuery = ref('')
@@ -94,30 +91,34 @@
   const total = ref(0)
   const dialogVisible = ref(false)
   const dialogTitle = ref('')
-  const form = ref({
-      teacherId: 0,
-      username: '20201104385',
-      name: '李世宇',
-      password: '1234567',
-      openid: Date.now(),
-      class_id: 0,
+  const form = ref<StudentItem>({
+    username: '20201104385',
+    name: '李世宇',
+    password: '1234567',
+    openid: String(Date.now()),
+    classId: 0,
+    userId: 0,
   })
   
-  const fetchData = async () => {
-    try {
-      loading.value = true
-      const res = await getStudent({
-        page: currentPage.value,
-        pageSize: pageSize.value,
-        search: searchQuery.value,
-        teacherId: Number(localStorage.getItem('userId'))
-      })
-      tableData.value = res.data.data
-      total.value = res.data.total
-    } finally {
-      loading.value = false
-    }
+const route = useRoute()
+const classId = ref(route.query.classId ? Number(route.query.classId) : 0)
+const className = ref(route.query.className ? String(route.query.className) : '')
+
+const fetchData = async () => {
+  try {
+    loading.value = true
+    const res = await getStudent({
+      page: currentPage.value,
+      pageSize: pageSize.value,
+      search: searchQuery.value,
+      classId: classId.value
+    })
+    tableData.value = res.data.data
+    total.value = res.data.total
+  } finally {
+    loading.value = false
   }
+}
   
   const handleSearch = () => {
     currentPage.value = 1
@@ -125,11 +126,15 @@
   }
   
   const handleAdd = () => {
-    dialogTitle.value = '新增班级'
-    form.value = { teacherId: 0,
+    dialogTitle.value = '新增学生'
+    form.value = { 
       username: '20201104385',
       name: '李世宇',
-      password: '1234567',openid: String(Date.now()), class_id: 0 }
+      password: '1234567',
+      openid: String(Date.now()),
+      classId: 0,
+      userId: 0,
+    }
     dialogVisible.value = true
   }
   
@@ -154,10 +159,10 @@
   
   const handleSubmit = async () => {
     try {
-      if (form.value.classId) {
-        await updateStudent(form.value.classId,form.value.className)
+      if (form.value.userId) {
+        await updateStudent(form.value.userId,form.value)
       } else {
-        form.value.teacherId = Number(localStorage.getItem('userId'))
+        form.value.classId = classId.value
         await createStudent(form.value)
       }
       dialogVisible.value = false
@@ -191,4 +196,3 @@
     margin-bottom: 20px;
   }
   </style>
-  

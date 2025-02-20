@@ -2,6 +2,7 @@ import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { User } from "../entiy/entities/User.entity";
+import { UserClass } from "src/entiy/entities/UserClass.entity";
 import * as bcrypt from "bcrypt";
 import { RegisterUserDto } from "./dto/register-user.dto";
 import { JwtService } from "@nestjs/jwt";
@@ -11,11 +12,14 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    @InjectRepository(UserClass)
+    private userClassRepository: Repository<UserClass>,
     private jwtService: JwtService,
   ) {}
 
+  //注册、、也叫给班级增加学生
   async register(registerUserDto: RegisterUserDto) {
-    const { username, password, name, openid, teacherId } = registerUserDto;
+    const { username, password, name, openid, classId } = registerUserDto;
     const existUser = await this.userRepository.findOne({
       where: { username },
     });
@@ -31,12 +35,18 @@ export class UserService {
       role: 0,
       openid,
       createTime: new Date(),
-      teacherId,
     });
 
-    const item = await this.userRepository.save(user);
+    const savedUser = await this.userRepository.save(user);
+    // 创建UserClass记录
+    const userClass = this.userClassRepository.create({
+      userId: savedUser.userId,
+      classId: classId,
+    });
+    await this.userClassRepository.save(userClass);
+
     return {
-      item,
+      item: savedUser,
     };
   }
 
@@ -64,15 +74,35 @@ export class UserService {
     return { token, payload, code: 200 };
   }
 
-  async findAll(item): Promise<{ data: User[]; total: number }> {
+  async findAll(item: {
+    classId?: number;
+    page: number;
+    pageSize: number;
+    search?: string;
+  }): Promise<{ data: User[]; total: number }> {
     const query = this.userRepository
       .createQueryBuilder("user")
       .skip((item.page - 1) * item.pageSize)
       .take(item.pageSize);
 
-    query.where({ role: 0, teacherId: item.teacherId });
+    query.where({ role: 0 });
+
+    if (item.classId) {
+      const userIds = await this.userClassRepository
+        .createQueryBuilder("userClass")
+        .select("userClass.userId")
+        .where("userClass.classId = :classId", { classId: item.classId })
+        .getRawMany();
+      const ids = userIds.map((uc) => uc.userClass_user_id);
+      if (ids.length > 0) {
+        query.andWhere("user.userId IN (:...ids)", { ids });
+      } else {
+        throw new HttpException("该班级没有学生", HttpStatus.OK);
+      }
+    }
+
     if (item.search) {
-      query.where("user.name LIKE :search", {
+      query.andWhere("(user.name LIKE :search OR user.username LIKE :search)", {
         search: `%${item.search}%`,
       });
     }
@@ -97,7 +127,11 @@ export class UserService {
 
   async remove(id: number) {
     const user = await this.findOne(id);
+    const userClass = await this.userClassRepository.findOne({
+      where: { userId: id },
+    });
     await this.userRepository.remove(user);
+    await this.userClassRepository.remove(userClass);
     return { message: "用户删除成功" };
   }
 

@@ -19,6 +19,6 @@ export const createStudent = (data:insertType)=>{
     return request.post('/user/register',data)
 }
 //修改
-export const updateStudent = (data:updateType)=>{
-    return request.post('/user/register',{...data})
+export const updateStudent = (id:number,data:updateType)=>{
+    return request.patch('/user/'+id,{...data})
 }

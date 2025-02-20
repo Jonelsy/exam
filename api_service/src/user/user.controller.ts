@@ -52,7 +52,7 @@ export class UserController {
   }
 
   @Post("/userList")
-  @ApiOperation({ summary: "获取老师名下所有学生" })
+  @ApiOperation({ summary: "获取班级下所有学生" })
   @ApiResponse({ status: 201, description: "成功获取学生列表" })
   @ApiBearerAuth("jwt")
   @UseGuards(AuthGuard("jwt"))
