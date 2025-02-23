@@ -9,7 +9,13 @@ export declare class CreateExamDto {
     allowTimes: number;
     teacherId: number;
 }
+export declare class UpdateExamDto extends CreateExamDto {
+    examId: number;
+}
 export declare class findExamDto {
-    teacherId?: string;
-    classId?: string;
+    teacherId?: number;
+    classId?: number;
+    page: number;
+    pageSize: number;
+    search?: string;
 }

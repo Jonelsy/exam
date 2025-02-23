@@ -7,7 +7,7 @@ import { Exam } from "../entiy/entities/Exam.entity";
 import { ClassExam } from "../entiy/entities/ClassExam.entity";
 import { Question } from "../entiy/entities/Question.entity";
 import { Option } from "../entiy/entities/Option.entity";
-import { CreateExamDto } from "./dto/exam.dto";
+import { CreateExamDto, UpdateExamDto } from "./dto/exam.dto";
 import { CreateQuestionDto, UpdateQuestionDto } from "./dto/question.dto";
 import { CreateOptionDto, UpdateOptionDto } from "./dto/option.dto";
 
@@ -31,29 +31,44 @@ export class ExamService {
     return await this.examRepository.save(exam);
   }
   //查询考试列表
-  async findAll(query): Promise<Exam[]> {
-    if (query.classId && query.teacherId) {
+  async findAll(query: {
+    classId?: number;
+    teacherId?: number;
+    page: number;
+    pageSize: number;
+    search?: string;
+  }): Promise<{ exams: Exam[]; total: number; totalPages: number }> {
+    const { classId, teacherId, page = 1, pageSize = 10 } = query;
+
+    if (classId && teacherId) {
       throw new NotFoundException(`不可以都传`);
     }
-    if (query.teacherId) {
-      return await this.examRepository.find({
-        where: { teacherId: query.teacherId },
+
+    if (teacherId) {
+      const [exams, total] = await this.examRepository.findAndCount({
+        where: { teacherId },
+        skip: (page - 1) * pageSize,
+        take: pageSize,
       });
+      const totalPages = Math.ceil(total / pageSize);
+      return { exams, total, totalPages };
     }
-    if (query.classId) {
-      const classExamList = await this.classExamRepository.find({
-        where: { classId: query.classId },
-      });
+
+    if (classId) {
+      // eslint-disable-next-line prettier/prettier
+      const [classExamList, total] = await this.classExamRepository.findAndCount({
+          where: { classId },
+          skip: (page - 1) * pageSize,
+          take: pageSize,
+        });
+
       const examPromises = classExamList.map(async (classExam: any) => {
-        // 根据examId查询exam表，并直接返回Exam对象
         return this.examRepository.findOneBy({ examId: classExam.examId });
       });
 
-      // 等待所有Promise完成，并得到一个Exam对象的数组
       const exams = await Promise.all(examPromises);
-
-      // 返回Exam对象的数组
-      return exams;
+      const totalPages = Math.ceil(total / pageSize);
+      return { exams, total, totalPages };
     }
 
     throw new NotFoundException(`传递Id有误`);
@@ -67,8 +82,8 @@ export class ExamService {
     return exam;
   }
   //更新考试详细信息
-  async update(id: number, updateExamDto: CreateExamDto): Promise<Exam> {
-    const exam = await this.findOne(id);
+  async update(updateExamDto: UpdateExamDto): Promise<Exam> {
+    const exam = await this.findOne(updateExamDto.examId);
     const newExam = Object.assign(exam, updateExamDto);
     return await this.examRepository.save(newExam);
   }

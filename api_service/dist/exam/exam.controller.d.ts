@@ -1,6 +1,6 @@
 import { CreateExamRecordDto } from "./dto/exam-record.dto";
 import { ExamService } from "./exam.service";
-import { CreateExamDto, findExamDto } from "./dto/exam.dto";
+import { CreateExamDto, findExamDto, UpdateExamDto } from "./dto/exam.dto";
 import { CreateQuestionDto, UpdateQuestionDto } from "./dto/question.dto";
 import { CreateOptionDto, UpdateOptionDto } from "./dto/option.dto";
 export declare class ExamController {
@@ -8,9 +8,13 @@ export declare class ExamController {
     constructor(examService: ExamService);
     create(createExamDto: CreateExamDto): Promise<import("../entiy/entities/Exam.entity").Exam>;
     bindExamToClass(examId: string, classId: string): Promise<import("../entiy/entities/ClassExam.entity").ClassExam>;
-    findAll(query: findExamDto): Promise<import("../entiy/entities/Exam.entity").Exam[]>;
+    findAll(query: findExamDto): Promise<{
+        exams: import("../entiy/entities/Exam.entity").Exam[];
+        total: number;
+        totalPages: number;
+    }>;
     findOne(id: string): Promise<import("../entiy/entities/Exam.entity").Exam>;
-    update(id: string, updateExamDto: CreateExamDto): Promise<import("../entiy/entities/Exam.entity").Exam>;
+    update(updateExamDto: UpdateExamDto): Promise<import("../entiy/entities/Exam.entity").Exam>;
     remove(id: string): Promise<void>;
     createQuestion(createQuestionDto: CreateQuestionDto): Promise<import("../entiy/entities/Question.entity").Question>;
     getQuestionsByExam(examId: string, Page: number, PageSize: number): Promise<{

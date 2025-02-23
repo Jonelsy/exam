@@ -11,7 +11,7 @@ import {
 } from "@nestjs/common";
 import { CreateExamRecordDto } from "./dto/exam-record.dto";
 import { ExamService } from "./exam.service";
-import { CreateExamDto, findExamDto } from "./dto/exam.dto";
+import { CreateExamDto, findExamDto, UpdateExamDto } from "./dto/exam.dto";
 import {
   ApiBearerAuth,
   ApiBody,
@@ -96,13 +96,13 @@ export class ExamController {
    * @param updateExamDto 更新信息
    * @returns 更新后的考试
    */
-  @Patch(":id")
+  @Post("/update")
   @ApiBearerAuth("jwt")
   @UseGuards(AuthGuard("jwt"))
   @ApiOperation({ summary: "更新考试信息" })
   @ApiResponse({ status: 200, description: "成功" })
-  update(@Param("id") id: string, @Body() updateExamDto: CreateExamDto) {
-    return this.examService.update(+id, updateExamDto);
+  update(@Body() updateExamDto: UpdateExamDto) {
+    return this.examService.update(updateExamDto);
   }
 
   /**

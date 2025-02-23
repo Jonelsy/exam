@@ -40,6 +40,10 @@
             <el-icon><DataAnalysis/></el-icon>
             <template #title><span>班级管理</span></template>
           </el-menu-item> 
+          <el-menu-item index="/exam">
+            <el-icon><DataAnalysis/></el-icon>
+            <template #title><span>考试管理</span></template>
+          </el-menu-item> 
         </el-menu>
       </el-scrollbar>
     </template>

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findExamDto = exports.CreateExamDto = void 0;
+exports.findExamDto = exports.UpdateExamDto = exports.CreateExamDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CreateExamDto {
@@ -71,19 +71,46 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: "老师ID不能为空" }),
     __metadata("design:type", Number)
 ], CreateExamDto.prototype, "teacherId", void 0);
+class UpdateExamDto extends CreateExamDto {
+}
+exports.UpdateExamDto = UpdateExamDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "examId", example: 1 }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)({ message: "examId不能为空" }),
+    __metadata("design:type", Number)
+], UpdateExamDto.prototype, "examId", void 0);
 class findExamDto {
 }
 exports.findExamDto = findExamDto;
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: "Teacher ID", example: "123" }),
+    (0, swagger_1.ApiPropertyOptional)({ description: "Teacher ID", example: 8 }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], findExamDto.prototype, "teacherId", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: "Class ID", example: "456" }),
+    (0, swagger_1.ApiPropertyOptional)({ description: "Class ID", example: 3 }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", Number)
+], findExamDto.prototype, "classId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "page", example: 1 }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)({ message: "page不能为空" }),
+    __metadata("design:type", Number)
+], findExamDto.prototype, "page", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "pageSize", example: 10 }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)({ message: "pageSize不能为空" }),
+    __metadata("design:type", Number)
+], findExamDto.prototype, "pageSize", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "搜索", example: "计算机组成原理" }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], findExamDto.prototype, "classId", void 0);
+], findExamDto.prototype, "search", void 0);
 //# sourceMappingURL=exam.dto.js.map

@@ -34,23 +34,31 @@ let ExamService = class ExamService {
         return await this.examRepository.save(exam);
     }
     async findAll(query) {
-        if (query.classId && query.teacherId) {
+        const { classId, teacherId, page = 1, pageSize = 10 } = query;
+        if (classId && teacherId) {
             throw new common_1.NotFoundException(`不可以都传`);
         }
-        if (query.teacherId) {
-            return await this.examRepository.find({
-                where: { teacherId: query.teacherId },
+        if (teacherId) {
+            const [exams, total] = await this.examRepository.findAndCount({
+                where: { teacherId },
+                skip: (page - 1) * pageSize,
+                take: pageSize,
             });
+            const totalPages = Math.ceil(total / pageSize);
+            return { exams, total, totalPages };
         }
-        if (query.classId) {
-            const classExamList = await this.classExamRepository.find({
-                where: { classId: query.classId },
+        if (classId) {
+            const [classExamList, total] = await this.classExamRepository.findAndCount({
+                where: { classId },
+                skip: (page - 1) * pageSize,
+                take: pageSize,
             });
             const examPromises = classExamList.map(async (classExam) => {
                 return this.examRepository.findOneBy({ examId: classExam.examId });
             });
             const exams = await Promise.all(examPromises);
-            return exams;
+            const totalPages = Math.ceil(total / pageSize);
+            return { exams, total, totalPages };
         }
         throw new common_1.NotFoundException(`传递Id有误`);
     }
@@ -61,8 +69,8 @@ let ExamService = class ExamService {
         }
         return exam;
     }
-    async update(id, updateExamDto) {
-        const exam = await this.findOne(id);
+    async update(updateExamDto) {
+        const exam = await this.findOne(updateExamDto.examId);
         const newExam = Object.assign(exam, updateExamDto);
         return await this.examRepository.save(newExam);
     }

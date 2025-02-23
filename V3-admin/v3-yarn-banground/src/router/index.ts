@@ -39,6 +39,14 @@ const routes: Array<RouteRecordRaw> = [
           title:'学生管理'
         },
       },
+      {
+        path: '/exam',
+        name: 'exam',
+        component: () => import('../views/exam/exam.vue'),
+        meta:{
+          title:'考试管理'
+        },
+      },
     ]
   },
 ]

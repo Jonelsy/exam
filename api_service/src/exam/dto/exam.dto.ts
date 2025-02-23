@@ -50,14 +50,36 @@ export class CreateExamDto {
   teacherId: number;
 }
 
-export class findExamDto {
-  @ApiPropertyOptional({ description: "Teacher ID", example: "123" })
-  @IsOptional()
-  @IsString()
-  teacherId?: string;
+export class UpdateExamDto extends CreateExamDto {
+  @ApiProperty({ description: "examId", example: 1 })
+  @IsNumber()
+  @IsNotEmpty({ message: "examId不能为空" })
+  examId: number;
+}
 
-  @ApiPropertyOptional({ description: "Class ID", example: "456" })
+export class findExamDto {
+  @ApiPropertyOptional({ description: "Teacher ID", example: 8 })
   @IsOptional()
   @IsString()
-  classId?: string;
+  teacherId?: number;
+
+  @ApiPropertyOptional({ description: "Class ID", example: 3 })
+  @IsOptional()
+  @IsString()
+  classId?: number;
+
+  @ApiProperty({ description: "page", example: 1 })
+  @IsNumber()
+  @IsNotEmpty({ message: "page不能为空" })
+  page: number;
+
+  @ApiProperty({ description: "pageSize", example: 10 })
+  @IsNumber()
+  @IsNotEmpty({ message: "pageSize不能为空" })
+  pageSize: number;
+
+  @ApiProperty({ description: "搜索", example: "计算机组成原理" })
+  @IsOptional()
+  @IsString()
+  search?: string;
 }

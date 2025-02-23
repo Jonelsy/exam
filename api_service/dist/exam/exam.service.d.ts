@@ -5,7 +5,7 @@ import { Exam } from "../entiy/entities/Exam.entity";
 import { ClassExam } from "../entiy/entities/ClassExam.entity";
 import { Question } from "../entiy/entities/Question.entity";
 import { Option } from "../entiy/entities/Option.entity";
-import { CreateExamDto } from "./dto/exam.dto";
+import { CreateExamDto, UpdateExamDto } from "./dto/exam.dto";
 import { CreateQuestionDto, UpdateQuestionDto } from "./dto/question.dto";
 import { CreateOptionDto, UpdateOptionDto } from "./dto/option.dto";
 export declare class ExamService {
@@ -16,9 +16,19 @@ export declare class ExamService {
     private readonly examRecordRepository;
     constructor(examRepository: Repository<Exam>, classExamRepository: Repository<ClassExam>, questionRepository: Repository<Question>, optionRepository: Repository<Option>, examRecordRepository: Repository<ExamRecord>);
     create(createExamDto: CreateExamDto): Promise<Exam>;
-    findAll(query: any): Promise<Exam[]>;
+    findAll(query: {
+        classId?: number;
+        teacherId?: number;
+        page: number;
+        pageSize: number;
+        search?: string;
+    }): Promise<{
+        exams: Exam[];
+        total: number;
+        totalPages: number;
+    }>;
     findOne(id: number): Promise<Exam>;
-    update(id: number, updateExamDto: CreateExamDto): Promise<Exam>;
+    update(updateExamDto: UpdateExamDto): Promise<Exam>;
     remove(id: number): Promise<void>;
     createQuestion(createQuestionDto: CreateQuestionDto): Promise<Question>;
     findAllQuestions(examId: number, page: number, pageSize: number): Promise<{
