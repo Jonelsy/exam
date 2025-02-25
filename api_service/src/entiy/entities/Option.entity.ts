@@ -9,6 +9,9 @@ export class Option {
   @Column("int", { name: "question_id", comment: "题目ID" })
   questionId: number;
 
+  @Column("int", { name: "exam_id", comment: "所属考试ID" })
+  examId: number;
+
   @Column("varchar", { name: "content", comment: "选项内容", length: 255 })
   content: string;
 

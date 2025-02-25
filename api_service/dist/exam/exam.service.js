@@ -81,6 +81,7 @@ let ExamService = class ExamService {
         }
     }
     async createQuestion(createQuestionDto) {
+        await this.questionRepository.delete({ examId: createQuestionDto.examId });
         const question = this.questionRepository.create(createQuestionDto);
         return await this.questionRepository.save(question);
     }
@@ -130,6 +131,7 @@ let ExamService = class ExamService {
         }
     }
     async createOption(createOptionDto) {
+        await this.optionRepository.delete({ examId: createOptionDto.examId });
         const question = await this.questionRepository.findOne({
             where: { questionId: createOptionDto.questionId },
         });

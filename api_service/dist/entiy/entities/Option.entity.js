@@ -23,6 +23,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Option.prototype, "questionId", void 0);
 __decorate([
+    (0, typeorm_1.Column)("int", { name: "exam_id", comment: "所属考试ID" }),
+    __metadata("design:type", Number)
+], Option.prototype, "examId", void 0);
+__decorate([
     (0, typeorm_1.Column)("varchar", { name: "content", comment: "选项内容", length: 255 }),
     __metadata("design:type", String)
 ], Option.prototype, "content", void 0);

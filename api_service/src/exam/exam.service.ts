@@ -99,6 +99,8 @@ export class ExamService {
   async createQuestion(
     createQuestionDto: CreateQuestionDto,
   ): Promise<Question> {
+    //删除所有题目然后再创建
+    await this.questionRepository.delete({ examId: createQuestionDto.examId });
     const question = this.questionRepository.create(createQuestionDto);
     return await this.questionRepository.save(question);
   }
@@ -174,6 +176,8 @@ export class ExamService {
 
   // 创建选项
   async createOption(createOptionDto: CreateOptionDto): Promise<Option> {
+    //删除所有题库中对应所有的选项然后再创建
+    await this.optionRepository.delete({ examId: createOptionDto.examId });
     // 获取对应的question
     const question = await this.questionRepository.findOne({
       where: { questionId: createOptionDto.questionId },

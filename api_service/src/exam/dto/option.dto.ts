@@ -10,6 +10,14 @@ export class CreateOptionDto {
   @IsNotEmpty()
   questionId: number;
 
+  @ApiProperty({
+    description: "试题ID(examId)",
+    example: 1,
+  })
+  @IsInt()
+  @IsNotEmpty()
+  examId: number;
+
   @ApiProperty({ description: "选项内容", example: "queryselectAll('p')" })
   @IsString()
   @IsNotEmpty()

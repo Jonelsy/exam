@@ -25,3 +25,16 @@ export const deleteExam = (id: number) => {
 export const getExamDetail = (id: number) => {
   return request({ url: `/exam/detail/${id}`, method: 'get' })
 }
+
+// 获取题目与选项
+export const getQuestionList = (params: any) => {
+  return request({ url: `/exam/question/${params.examId}/${params.page}/${params.pageSize}`, method: 'get' })
+}
+
+export const creatQuestion = (data: any) => {
+  return request({ url: '/exam/question', method: 'post', data })
+}
+
+export const creatOption = (data: any) => {
+  return request({ url: '/exam/option', method: 'post', data })
+}

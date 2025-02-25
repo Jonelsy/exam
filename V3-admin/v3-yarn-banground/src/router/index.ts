@@ -47,6 +47,14 @@ const routes: Array<RouteRecordRaw> = [
           title:'考试管理'
         },
       },
+      {
+        path: '/question',
+        name: 'question',
+        component: () => import('../views/exam/question.vue'),
+        meta:{
+          title:'试题管理'
+        },
+      },
     ]
   },
 ]

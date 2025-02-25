@@ -25,6 +25,15 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateOptionDto.prototype, "questionId", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: "试题ID(examId)",
+        example: 1,
+    }),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], CreateOptionDto.prototype, "examId", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ description: "选项内容", example: "queryselectAll('p')" }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),

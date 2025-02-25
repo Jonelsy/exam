@@ -1,5 +1,6 @@
 export declare class CreateOptionDto {
     questionId: number;
+    examId: number;
     content: string;
     isCorrect: boolean;
 }

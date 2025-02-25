@@ -33,6 +33,9 @@
         <el-table-column prop="createTime" label="创建时间" />
         <el-table-column label="操作" width="180" fixed="right">
           <template #default="{ row }">
+            <el-button type="text" size="small" @click="goQuestion(row)">
+              考题管理
+            </el-button>
             <el-button type="text" size="small" @click="handleEdit(row)">
               编辑
             </el-button>
@@ -89,6 +92,7 @@ import {
   getExamDetail
 } from '@/api/exam'
 import type { Exam, ExamForm, ExamListParams, ExamListResponse } from '@/api/exam/type'
+import router from '@/router'
 
 const examList = ref<Exam[]>([])
 const pagination = ref({
@@ -268,6 +272,15 @@ const resetForm = () => {
     createTime: ''
   }
   examForm.value.duration = 0
+}
+const goQuestion = (row:Exam)=>{
+  router.push({
+    path: '/question',
+    query: {
+      examId: row.examId,
+      examName: row.examName,
+    }
+  })
 }
 </script>
 
