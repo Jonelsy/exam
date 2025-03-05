@@ -1,5 +1,7 @@
 <template>
     <div class="question-editor">
+        <el-button type="primary" :icon="Edit" @click="addQuestion(questions.length)">添加题目</el-button>
+        
         <div v-for="(question, qIndex) in questions" :key="qIndex" class="question-item">
             <!-- 选择题型，用于下方展示 -->
             <div class="question-header">
@@ -57,14 +59,13 @@
                 </div>
                 <!-- 简答题 -->
                 <div v-else-if="question.questionType === 3">
-                    <!-- <el-input v-model="question.answer" type="textarea" :rows="4" placeholder="请输入参考答案"
-                        class="code-block"></el-input> -->
+                    <el-input v-model="question.options[0].content" type="textarea" :rows="4" placeholder="请输入参考答案"
+                        class="code-block"></el-input>
                 </div>
             </div>
-            <el-button type="primary" :icon="Edit" @click="addQuestion(qIndex)">添加题目</el-button>
         </div>
 
-        <el-button type="primary" :icon="Edit" @click="submitQuestion()">保存试题</el-button>
+        <el-button type="primary" :icon="Edit" @click="submitQuestion(examId)">保存试题</el-button>
     </div>
 </template>
 
@@ -75,7 +76,7 @@ import {
     Delete,
     Edit,
 } from '@element-plus/icons-vue'
-import { creatOption, creatQuestion, getExamList, getQuestionList } from '@/api/exam'
+import { creatOption, creatQuestion, deleteQuestion, getQuestionList } from '@/api/exam'
 import { ElMessage } from 'element-plus'
 
 const route = useRoute()
@@ -149,9 +150,11 @@ const getTableData = async () => {
 }
 
 // 保存试题
-const submitQuestion = async () => {
+const submitQuestion = async (id:any) => {
     try {
-        questions.value.forEach(async (item, qindex) => {
+        // 先清空所有题目与答案
+        await deleteQuestion(id)
+        for (const [qindex, item] of questions.value.entries()) {
             const question = {
                 content: item.content,
                 questionType: item.questionType,
@@ -159,18 +162,32 @@ const submitQuestion = async () => {
                 score: 10,
                 orderNum: qindex
             }
-            // 保存选项
+            // 先保存题目
             const res = await creatQuestion(question)
-            item.options.forEach(async (item) => {
-                const option = {
-                    questionId: res.data.questionId,
-                    content: item.content,
-                    isCorrect: item.isCorrect,
-                    examId:examId,
+            
+            // 再保存选项
+            if (item.questionType === 3) {
+                // 简答题
+                for (const optionItem of item.options) {
+                    await creatOption({
+                        questionId: res.data.questionId,
+                        content: optionItem.content,
+                        isCorrect: 1,
+                        examId: examId
+                    })
                 }
-                await creatOption(option)
-            })
-        })
+            } else {
+                // 其他题型
+                for (const optionItem of item.options) {
+                    await creatOption({
+                        questionId: res.data.questionId,
+                        content: optionItem.content,
+                        isCorrect: optionItem.isCorrect,
+                        examId: examId
+                    })
+                }
+            }
+        }
         ElMessage.success('操作成功')
     } catch (error) {
         console.error(error)

@@ -56,7 +56,7 @@ let ExamController = class ExamController {
         return this.examService.updateQuestion(+id, updateQuestionDto);
     }
     deleteQuestion(id) {
-        return this.examService.removeQuestion(+id);
+        return this.examService.removeQuestionOptions(+id);
     }
     createOption(createOptionDto) {
         return this.examService.createOption(createOptionDto);
@@ -198,11 +198,11 @@ __decorate([
     (0, common_1.Delete)("/question/:id"),
     (0, swagger_1.ApiBearerAuth)("jwt"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
-    (0, swagger_1.ApiOperation)({ summary: "删除题目" }),
+    (0, swagger_1.ApiOperation)({ summary: "清空题目与答案" }),
     (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], ExamController.prototype, "deleteQuestion", null);
 __decorate([

@@ -26,7 +26,7 @@ exports.UserModule = UserModule = __decorate([
             typeorm_1.TypeOrmModule.forFeature([User_entity_1.User, UserClass_entity_1.UserClass]),
             jwt_1.JwtModule.register({
                 secret: "jonelsy",
-                signOptions: { expiresIn: "1h" },
+                signOptions: { expiresIn: "10h" },
             }),
         ],
         providers: [user_service_1.UserService, jwt_strategy_1.JwtStrategy],

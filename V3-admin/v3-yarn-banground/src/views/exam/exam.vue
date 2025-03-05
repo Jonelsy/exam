@@ -89,7 +89,8 @@ import {
   createExam,
   updateExam,
   deleteExam,
-  getExamDetail
+  getExamDetail,
+  deleteQuestion
 } from '@/api/exam'
 import type { Exam, ExamForm, ExamListParams, ExamListResponse } from '@/api/exam/type'
 import router from '@/router'
@@ -151,6 +152,8 @@ const handleDelete = async (row: Exam) => {
     })
     // 这里添加删除逻辑
     loading.value = true
+    // 删除考试试题
+    await deleteQuestion(row.examId)
     await deleteExam(row.examId)
     await fetchExamList()
     ElMessage.success('删除成功')

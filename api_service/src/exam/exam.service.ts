@@ -99,8 +99,6 @@ export class ExamService {
   async createQuestion(
     createQuestionDto: CreateQuestionDto,
   ): Promise<Question> {
-    //删除所有题目然后再创建
-    await this.questionRepository.delete({ examId: createQuestionDto.examId });
     const question = this.questionRepository.create(createQuestionDto);
     return await this.questionRepository.save(question);
   }
@@ -166,18 +164,22 @@ export class ExamService {
     return await this.questionRepository.save(updatedQuestion);
   }
 
-  // 删除题目
-  async removeQuestion(id: number): Promise<void> {
-    const result = await this.questionRepository.delete(id);
-    if (result.affected === 0) {
-      throw new NotFoundException(`题目 ${id} 不存在`);
+  // 触发删除题目与答案
+  async removeQuestionOptions(id: number): Promise<void> {
+    console.log(id);
+
+    const optionResult = await this.optionRepository.delete({ examId: id });
+    if (optionResult.affected === 0) {
+      throw new NotFoundException(`考试 ${id} 的选项不存在`);
+    }
+    const questionResult = await this.questionRepository.delete({ examId: id });
+    if (questionResult.affected === 0) {
+      throw new NotFoundException(`考试 ${id} 的题目不存在`);
     }
   }
 
   // 创建选项
   async createOption(createOptionDto: CreateOptionDto): Promise<Option> {
-    //删除所有题库中对应所有的选项然后再创建
-    await this.optionRepository.delete({ examId: createOptionDto.examId });
     // 获取对应的question
     const question = await this.questionRepository.findOne({
       where: { questionId: createOptionDto.questionId },

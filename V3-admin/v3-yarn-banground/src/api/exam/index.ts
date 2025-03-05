@@ -38,3 +38,8 @@ export const creatQuestion = (data: any) => {
 export const creatOption = (data: any) => {
   return request({ url: '/exam/option', method: 'post', data })
 }
+
+
+export const deleteQuestion = (id: number) => {
+  return request.delete('/exam/question/'+id)
+}

@@ -81,7 +81,6 @@ let ExamService = class ExamService {
         }
     }
     async createQuestion(createQuestionDto) {
-        await this.questionRepository.delete({ examId: createQuestionDto.examId });
         const question = this.questionRepository.create(createQuestionDto);
         return await this.questionRepository.save(question);
     }
@@ -124,14 +123,18 @@ let ExamService = class ExamService {
         const updatedQuestion = Object.assign(question, updateQuestionDto);
         return await this.questionRepository.save(updatedQuestion);
     }
-    async removeQuestion(id) {
-        const result = await this.questionRepository.delete(id);
-        if (result.affected === 0) {
-            throw new common_1.NotFoundException(`题目 ${id} 不存在`);
+    async removeQuestionOptions(id) {
+        console.log(id);
+        const optionResult = await this.optionRepository.delete({ examId: id });
+        if (optionResult.affected === 0) {
+            throw new common_1.NotFoundException(`考试 ${id} 的选项不存在`);
+        }
+        const questionResult = await this.questionRepository.delete({ examId: id });
+        if (questionResult.affected === 0) {
+            throw new common_1.NotFoundException(`考试 ${id} 的题目不存在`);
         }
     }
     async createOption(createOptionDto) {
-        await this.optionRepository.delete({ examId: createOptionDto.examId });
         const question = await this.questionRepository.findOne({
             where: { questionId: createOptionDto.questionId },
         });

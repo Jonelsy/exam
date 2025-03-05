@@ -194,10 +194,10 @@ export class ExamController {
   @Delete("/question/:id")
   @ApiBearerAuth("jwt")
   @UseGuards(AuthGuard("jwt"))
-  @ApiOperation({ summary: "删除题目" })
+  @ApiOperation({ summary: "清空题目与答案" })
   @ApiResponse({ status: 200, description: "成功" })
-  deleteQuestion(@Param("id") id: string) {
-    return this.examService.removeQuestion(+id);
+  deleteQuestion(@Param("id") id: number) {
+    return this.examService.removeQuestionOptions(+id);
   }
 
   /**

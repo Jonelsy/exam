@@ -38,7 +38,7 @@ export declare class ExamService {
     }>;
     findOneQuestion(id: number): Promise<Question>;
     updateQuestion(id: number, updateQuestionDto: UpdateQuestionDto): Promise<Question>;
-    removeQuestion(id: number): Promise<void>;
+    removeQuestionOptions(id: number): Promise<void>;
     createOption(createOptionDto: CreateOptionDto): Promise<Option>;
     getOptionById(id: number): Promise<Option>;
     updateOption(id: number, updateOptionDto: UpdateOptionDto): Promise<Option>;
