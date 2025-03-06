@@ -7,6 +7,7 @@ import { RolesGuard } from "./auth/roles.guard";
 import { ClassModule } from "./class/class.module";
 import { ExamModule } from "./exam/exam.module";
 import { UserModule } from "./user/user.module";
+import { ClassExamModule } from "./classExam/classExam.module";
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -23,6 +24,7 @@ import { UserModule } from "./user/user.module";
     ClassModule,
     ExamModule,
     UserModule,
+    ClassExamModule,
   ],
   controllers: [AppController],
   providers: [

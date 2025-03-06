@@ -16,6 +16,7 @@ const roles_guard_1 = require("./auth/roles.guard");
 const class_module_1 = require("./class/class.module");
 const exam_module_1 = require("./exam/exam.module");
 const user_module_1 = require("./user/user.module");
+const classExam_module_1 = require("./classExam/classExam.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -36,6 +37,7 @@ exports.AppModule = AppModule = __decorate([
             class_module_1.ClassModule,
             exam_module_1.ExamModule,
             user_module_1.UserModule,
+            classExam_module_1.ClassExamModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [
