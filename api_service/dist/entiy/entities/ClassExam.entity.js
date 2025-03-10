@@ -26,6 +26,10 @@ __decorate([
     (0, typeorm_1.Column)("int", { name: "exam_id", comment: "考试ID" }),
     __metadata("design:type", Number)
 ], ClassExam.prototype, "examId", void 0);
+__decorate([
+    (0, typeorm_1.Column)("int", { name: "teacher_id", comment: "老师ID" }),
+    __metadata("design:type", Number)
+], ClassExam.prototype, "teacherId", void 0);
 exports.ClassExam = ClassExam = __decorate([
     (0, typeorm_1.Index)("exam_id", ["examId"], {}),
     (0, typeorm_1.Index)("uk_class_exam", ["classId", "examId"], { unique: true }),

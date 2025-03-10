@@ -78,7 +78,7 @@ export class findExamDto {
   @IsNotEmpty({ message: "pageSize不能为空" })
   pageSize: number;
 
-  @ApiProperty({ description: "搜索", example: "计算机组成原理" })
+  @ApiPropertyOptional({ description: "搜索", example: "计算机组成原理" })
   @IsOptional()
   @IsString()
   search?: string;

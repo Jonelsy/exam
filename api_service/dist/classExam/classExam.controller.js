@@ -34,7 +34,7 @@ let ClassExamController = class ClassExamController {
 };
 exports.ClassExamController = ClassExamController;
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)("/publish"),
     (0, swagger_1.ApiBearerAuth)("jwt"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, swagger_1.ApiOperation)({ summary: "创建班级考试关联" }),

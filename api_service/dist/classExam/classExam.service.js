@@ -33,6 +33,7 @@ let ClassExamService = class ClassExamService {
         const [classExams, total] = await this.classExamRepository.findAndCount({
             skip,
             take: pageSize,
+            where: { teacherId: paginationDto.teacherId },
         });
         const classIds = classExams.map((ce) => ce.classId);
         const examIds = classExams.map((ce) => ce.examId);

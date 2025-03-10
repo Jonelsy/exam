@@ -96,7 +96,8 @@ const fetchData = async () => {
     const res = await getClasses({
       page: currentPage.value,
       pageSize: pageSize.value,
-      search: searchQuery.value
+      search: searchQuery.value,
+      teacherId: Number(localStorage.getItem('userId'))
     })
     tableData.value = res.data.data
     total.value = res.data.total

@@ -6,6 +6,7 @@ export declare class getClassDto {
     page: number;
     pageSize: number;
     search: string | null;
+    teacherId: number;
 }
 export declare class UpdateClassDto {
     className: string;

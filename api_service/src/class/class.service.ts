@@ -46,15 +46,18 @@ export class ClassService {
     };
   }
 
-  // 获取所有班级（带分页和搜索）
+  // 获取老师ID下所有班级（带分页和搜索）
   async findAll(getClassDto): Promise<{ data: Class[]; total: number }> {
     const query = this.classRepository
       .createQueryBuilder("class")
+      .where("class.teacherId = :teacherId", {
+        teacherId: getClassDto.teacherId,
+      })
       .skip((getClassDto.page - 1) * getClassDto.pageSize)
       .take(getClassDto.pageSize);
 
     if (getClassDto.search) {
-      query.where("class.className LIKE :search", {
+      query.andWhere("class.className LIKE :search", {
         search: `%${getClassDto.search}%`,
       });
     }

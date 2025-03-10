@@ -26,6 +26,11 @@ export class getClassDto {
   @ApiProperty({ description: "搜索内容", example: "" })
   @IsString()
   search: string | null;
+
+  @ApiProperty({ description: "老师ID", example: 8 })
+  @IsNotEmpty({ message: "老师ID不能为空" })
+  @IsNumber()
+  teacherId: number;
 }
 
 export class UpdateClassDto {

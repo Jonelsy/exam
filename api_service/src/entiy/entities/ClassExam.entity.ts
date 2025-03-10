@@ -12,4 +12,7 @@ export class ClassExam {
 
   @Column("int", { name: "exam_id", comment: "考试ID" })
   examId: number;
+
+  @Column("int", { name: "teacher_id", comment: "老师ID" })
+  teacherId: number;
 }

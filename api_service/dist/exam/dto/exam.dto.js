@@ -108,7 +108,7 @@ __decorate([
     __metadata("design:type", Number)
 ], findExamDto.prototype, "pageSize", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "搜索", example: "计算机组成原理" }),
+    (0, swagger_1.ApiPropertyOptional)({ description: "搜索", example: "计算机组成原理" }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

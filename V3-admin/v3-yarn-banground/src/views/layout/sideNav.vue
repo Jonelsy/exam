@@ -44,6 +44,10 @@
             <el-icon><DataAnalysis/></el-icon>
             <template #title><span>考试管理</span></template>
           </el-menu-item> 
+          <el-menu-item index="/examClass">
+            <el-icon><DataAnalysis/></el-icon>
+            <template #title><span>发布考试</span></template>
+          </el-menu-item> 
         </el-menu>
       </el-scrollbar>
     </template>

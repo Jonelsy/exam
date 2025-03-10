@@ -2,7 +2,8 @@
 export interface getType{
     search?:string,
     page:number,
-    pageSize:number
+    pageSize:number,
+    teacherId:number,
 }
 //定义新增
 export interface insertType{

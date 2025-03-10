@@ -47,6 +47,12 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], getClassDto.prototype, "search", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "老师ID", example: 8 }),
+    (0, class_validator_1.IsNotEmpty)({ message: "老师ID不能为空" }),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], getClassDto.prototype, "teacherId", void 0);
 class UpdateClassDto {
 }
 exports.UpdateClassDto = UpdateClassDto;

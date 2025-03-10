@@ -55,6 +55,14 @@ const routes: Array<RouteRecordRaw> = [
           title:'试题管理'
         },
       },
+      {
+        path: '/examClass',
+        name: 'examClass',
+        component: () => import('../views/exam/examClass.vue'),
+        meta:{
+          title:'分配考试'
+        },
+      },
     ]
   },
 ]

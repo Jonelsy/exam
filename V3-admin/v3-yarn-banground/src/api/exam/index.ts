@@ -1,5 +1,5 @@
 import request from '@/axios/axios'
-import type { Exam } from './type'
+import type { Exam, getExamListType } from './type'
 
 // 获取考试列表
 export const getExamList = (params: any) => {
@@ -42,4 +42,19 @@ export const creatOption = (data: any) => {
 
 export const deleteQuestion = (id: number) => {
   return request.delete('/exam/question/'+id)
+}
+
+// 获取班级列表
+export const getClassList = (data: getExamListType) => {
+  return request({ url: '/class/getClass', method: 'post', data })
+}
+
+// 发布班级考试
+export const publishClassExam = (data: { classId: number, examId: number, teacherId:number }) => {
+  return request({ url: '/class-exam/publish', method: 'post', data })
+}
+
+//获取班级考试列表
+export const getExamClassList = (params: any) => {
+  return request({ url: '/class-exam', method: 'get', params })
 }

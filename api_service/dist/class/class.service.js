@@ -48,10 +48,13 @@ let ClassService = class ClassService {
     async findAll(getClassDto) {
         const query = this.classRepository
             .createQueryBuilder("class")
+            .where("class.teacherId = :teacherId", {
+            teacherId: getClassDto.teacherId,
+        })
             .skip((getClassDto.page - 1) * getClassDto.pageSize)
             .take(getClassDto.pageSize);
         if (getClassDto.search) {
-            query.where("class.className LIKE :search", {
+            query.andWhere("class.className LIKE :search", {
                 search: `%${getClassDto.search}%`,
             });
         }

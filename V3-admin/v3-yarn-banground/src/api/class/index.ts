@@ -4,8 +4,7 @@ import request from "@/axios/axios";
 import type {reqLoginresPonse, reqLoginType, reqReginType, reqReginresPonse, updateUserType} from "@/api/user/type";
 import {getType, insertType, updateType} from "@/api/class/type";
 
-//对外暴露方法
-
+//对外暴露方法获取班级列表，绑定老师ID
 export const getClasses = (data:getType)=>{
     return request.post('/class/getClass',data)
 }

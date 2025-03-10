@@ -27,3 +27,9 @@ export interface ExamListResponse {
   list: Exam[]
   total: number
 }
+export interface getExamListType {
+  page: number
+  pageSize: number
+  search?:string
+  teacherId: number
+}

@@ -16,15 +16,23 @@ class CreateClassExamDto {
 }
 exports.CreateClassExamDto = CreateClassExamDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: "classId", example: 1 }),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateClassExamDto.prototype, "classId", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: "examId", example: 1 }),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateClassExamDto.prototype, "examId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "teacherId", example: 8 }),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateClassExamDto.prototype, "teacherId", void 0);
 class PaginationDto {
 }
 exports.PaginationDto = PaginationDto;
@@ -40,4 +48,10 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: "pageSize不能为空" }),
     __metadata("design:type", Number)
 ], PaginationDto.prototype, "pageSize", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: "teacherId", example: 8 }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)({ message: "teacherId不能为空" }),
+    __metadata("design:type", Number)
+], PaginationDto.prototype, "teacherId", void 0);
 //# sourceMappingURL=create-classExam.dto.js.map

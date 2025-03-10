@@ -28,7 +28,7 @@ export class ClassExamController {
    * @param createClassExamDto 班级考试信息
    * @returns 创建结果
    */
-  @Post()
+  @Post("/publish")
   @ApiBearerAuth("jwt")
   @UseGuards(AuthGuard("jwt"))
   @ApiOperation({ summary: "创建班级考试关联" })
