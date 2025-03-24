@@ -166,16 +166,14 @@ export class ExamService {
 
   // 触发删除题目与答案
   async removeQuestionOptions(id: number): Promise<void> {
-    console.log(id);
-
-    const optionResult = await this.optionRepository.delete({ examId: id });
-    if (optionResult.affected === 0) {
-      throw new NotFoundException(`考试 ${id} 的选项不存在`);
-    }
-    const questionResult = await this.questionRepository.delete({ examId: id });
-    if (questionResult.affected === 0) {
-      throw new NotFoundException(`考试 ${id} 的题目不存在`);
-    }
+    await this.questionRepository.delete({ examId: id });
+    // if (optionResult.affected === 0) {
+    //   throw new NotFoundException(`考试 ${id} 的选项不存在`);
+    // }
+    // const questionResult = await this.questionRepository.delete({ examId: id });
+    // if (questionResult.affected === 0) {
+    //   throw new NotFoundException(`考试 ${id} 的题目不存在`);
+    // }
   }
 
   // 创建选项

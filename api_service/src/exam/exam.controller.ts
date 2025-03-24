@@ -21,7 +21,7 @@ import {
 } from "@nestjs/swagger";
 import { AuthGuard } from "@nestjs/passport";
 import { CreateQuestionDto, UpdateQuestionDto } from "./dto/question.dto";
-import { CreateOptionDto, UpdateOptionDto } from "./dto/option.dto";
+import { CreateOptionDto } from "./dto/option.dto";
 
 @ApiTags("考试管理")
 @Controller("exam")
@@ -70,7 +70,7 @@ export class ExamController {
   @Get("/list")
   @ApiBearerAuth("jwt")
   @UseGuards(AuthGuard("jwt"))
-  @ApiOperation({ summary: "获取考试列表" })
+  @ApiOperation({ summary: "通用获取考试列表" })
   @ApiResponse({ status: 200, description: "成功" })
   findAll(@Query() query: findExamDto) {
     return this.examService.findAll(query);
@@ -159,14 +159,14 @@ export class ExamController {
    * @param id 题目ID
    * @returns 题目信息
    */
-  @Get("/question/:id")
-  @ApiBearerAuth("jwt")
-  @UseGuards(AuthGuard("jwt"))
-  @ApiOperation({ summary: "获取单个题目信息" })
-  @ApiResponse({ status: 200, description: "成功" })
-  getQuestion(@Param("id") id: string) {
-    return this.examService.findOneQuestion(+id);
-  }
+  // @Get("/question/:id")
+  // @ApiBearerAuth("jwt")
+  // @UseGuards(AuthGuard("jwt"))
+  // @ApiOperation({ summary: "获取单个题目信息" })
+  // @ApiResponse({ status: 200, description: "成功" })
+  // getQuestion(@Param("id") id: string) {
+  //   return this.examService.findOneQuestion(+id);
+  // }
 
   /**
    * 更新题目
@@ -221,14 +221,14 @@ export class ExamController {
    * @param id 选项ID
    * @returns 选项信息
    */
-  @Get("/option/:id")
-  @ApiBearerAuth("jwt")
-  @UseGuards(AuthGuard("jwt"))
-  @ApiOperation({ summary: "获取单个选项信息" })
-  @ApiResponse({ status: 200, description: "成功" })
-  getOption(@Param("id") id: string) {
-    return this.examService.getOptionById(+id);
-  }
+  // @Get("/option/:id")
+  // @ApiBearerAuth("jwt")
+  // @UseGuards(AuthGuard("jwt"))
+  // @ApiOperation({ summary: "获取单个选项信息" })
+  // @ApiResponse({ status: 200, description: "成功" })
+  // getOption(@Param("id") id: string) {
+  //   return this.examService.getOptionById(+id);
+  // }
 
   /**
    * 更新选项
@@ -236,31 +236,31 @@ export class ExamController {
    * @param updateOptionDto 更新信息
    * @returns 更新后的选项
    */
-  @Patch("/option/:id")
-  @ApiBearerAuth("jwt")
-  @UseGuards(AuthGuard("jwt"))
-  @ApiOperation({ summary: "更新选项信息" })
-  @ApiResponse({ status: 200, description: "成功" })
-  updateOption(
-    @Param("id") id: string,
-    @Body() updateOptionDto: UpdateOptionDto,
-  ) {
-    return this.examService.updateOption(+id, updateOptionDto);
-  }
+  // @Patch("/option/:id")
+  // @ApiBearerAuth("jwt")
+  // @UseGuards(AuthGuard("jwt"))
+  // @ApiOperation({ summary: "更新选项信息" })
+  // @ApiResponse({ status: 200, description: "成功" })
+  // updateOption(
+  //   @Param("id") id: string,
+  //   @Body() updateOptionDto: UpdateOptionDto,
+  // ) {
+  //   return this.examService.updateOption(+id, updateOptionDto);
+  // }
 
   /**
    * 删除选项
    * @param id 选项ID
    * @returns 删除结果
    */
-  @Delete("/option/:id")
-  @ApiBearerAuth("jwt")
-  @UseGuards(AuthGuard("jwt"))
-  @ApiOperation({ summary: "删除选项" })
-  @ApiResponse({ status: 200, description: "成功" })
-  deleteOption(@Param("id") id: string) {
-    return this.examService.deleteOption(+id);
-  }
+  // @Delete("/option/:id")
+  // @ApiBearerAuth("jwt")
+  // @UseGuards(AuthGuard("jwt"))
+  // @ApiOperation({ summary: "删除选项" })
+  // @ApiResponse({ status: 200, description: "成功" })
+  // deleteOption(@Param("id") id: string) {
+  //   return this.examService.deleteOption(+id);
+  // }
 
   /**
    * 创建考试记录

@@ -11,12 +11,14 @@ export declare class UserService {
     register(registerUserDto: RegisterUserDto): Promise<{
         item: User;
     }>;
-    login(username: string, password: string): Promise<{
+    login(username: string, password: string, openid?: string): Promise<{
         token: string;
         payload: {
             username: string;
             userId: number;
             role: number;
+            openid: string;
+            name: string;
         };
         code: number;
     }>;

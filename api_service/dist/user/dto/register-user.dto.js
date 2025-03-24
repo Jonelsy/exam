@@ -56,6 +56,11 @@ __decorate([
     __metadata("design:type", String)
 ], LoginUserDto.prototype, "username", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: "openid", example: "" }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], LoginUserDto.prototype, "openid", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ description: "密码", example: "1234567" }),
     (0, class_validator_1.IsNotEmpty)({ message: "密码不能为空" }),
     (0, class_validator_1.IsString)(),

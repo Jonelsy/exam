@@ -53,10 +53,10 @@ let UserService = class UserService {
             item: savedUser,
         };
     }
-    async login(username, password) {
+    async login(username, password, openid) {
         const user = await this.userRepository.findOne({
             where: { username },
-            select: ["userId", "username", "name", "role", "password"],
+            select: ["userId", "username", "name", "role", "password", "openid"],
         });
         if (!user) {
             throw new common_1.HttpException("用户不存在", common_1.HttpStatus.NOT_FOUND);
@@ -65,10 +65,16 @@ let UserService = class UserService {
         if (!isPasswordValid) {
             throw new common_1.HttpException("密码错误", common_1.HttpStatus.UNAUTHORIZED);
         }
+        if (!user.openid && openid) {
+            user.openid = openid;
+            await this.userRepository.save(user);
+        }
         const payload = {
             username: user.username,
             userId: user.userId,
             role: user.role,
+            openid: user.openid,
+            name: user.name,
         };
         const token = this.jwtService.sign(payload);
         return { token, payload, code: 200 };

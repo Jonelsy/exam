@@ -27,7 +27,7 @@ let UserController = class UserController {
         return this.userService.register(item);
     }
     async login(item) {
-        return this.userService.login(item.username, item.password);
+        return this.userService.login(item.username, item.password, item.openid);
     }
     async findAll(item) {
         return this.userService.findAll(item);
@@ -43,11 +43,6 @@ let UserController = class UserController {
     }
     async remove(id) {
         return this.userService.remove(+id);
-    }
-    async getProtectedData() {
-        return {
-            message: "这个接口只允许role为0或1访问",
-        };
     }
 };
 exports.UserController = UserController;
@@ -129,14 +124,6 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "remove", null);
-__decorate([
-    (0, common_1.Get)("/protected-data"),
-    (0, swagger_1.ApiOperation)({ summary: "获取受保护的数据" }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: "成功获取受保护的数据" }),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "getProtectedData", null);
 exports.UserController = UserController = __decorate([
     (0, swagger_1.ApiTags)("用户相关管理"),
     (0, common_1.Controller)("user"),

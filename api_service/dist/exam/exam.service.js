@@ -124,15 +124,7 @@ let ExamService = class ExamService {
         return await this.questionRepository.save(updatedQuestion);
     }
     async removeQuestionOptions(id) {
-        console.log(id);
-        const optionResult = await this.optionRepository.delete({ examId: id });
-        if (optionResult.affected === 0) {
-            throw new common_1.NotFoundException(`考试 ${id} 的选项不存在`);
-        }
-        const questionResult = await this.questionRepository.delete({ examId: id });
-        if (questionResult.affected === 0) {
-            throw new common_1.NotFoundException(`考试 ${id} 的题目不存在`);
-        }
+        await this.questionRepository.delete({ examId: id });
     }
     async createOption(createOptionDto) {
         const question = await this.questionRepository.findOne({

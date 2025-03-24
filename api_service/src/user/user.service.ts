@@ -50,25 +50,30 @@ export class UserService {
     };
   }
 
-  async login(username: string, password: string) {
+  async login(username: string, password: string, openid?: string) {
     const user = await this.userRepository.findOne({
       where: { username },
-      select: ["userId", "username", "name", "role", "password"],
+      select: ["userId", "username", "name", "role", "password", "openid"],
     });
     if (!user) {
       throw new HttpException("用户不存在", HttpStatus.NOT_FOUND);
     }
-
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new HttpException("密码错误", HttpStatus.UNAUTHORIZED);
     }
-
-    // 返回token
+    // 如果用户没有openid且传入了openid，则更新
+    if (!user.openid && openid) {
+      user.openid = openid;
+      await this.userRepository.save(user);
+    }
+    // 返回token,openid
     const payload = {
       username: user.username,
       userId: user.userId,
       role: user.role,
+      openid: user.openid,
+      name: user.name,
     };
     const token = this.jwtService.sign(payload);
     return { token, payload, code: 200 };

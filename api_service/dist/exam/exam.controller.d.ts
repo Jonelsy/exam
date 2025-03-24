@@ -2,7 +2,7 @@ import { CreateExamRecordDto } from "./dto/exam-record.dto";
 import { ExamService } from "./exam.service";
 import { CreateExamDto, findExamDto, UpdateExamDto } from "./dto/exam.dto";
 import { CreateQuestionDto, UpdateQuestionDto } from "./dto/question.dto";
-import { CreateOptionDto, UpdateOptionDto } from "./dto/option.dto";
+import { CreateOptionDto } from "./dto/option.dto";
 export declare class ExamController {
     private readonly examService;
     constructor(examService: ExamService);
@@ -22,12 +22,8 @@ export declare class ExamController {
         total: number;
         totalPages: number;
     }>;
-    getQuestion(id: string): Promise<import("../entiy/entities/Question.entity").Question>;
     updateQuestion(id: string, updateQuestionDto: UpdateQuestionDto): Promise<import("../entiy/entities/Question.entity").Question>;
     deleteQuestion(id: number): Promise<void>;
     createOption(createOptionDto: CreateOptionDto): Promise<import("../entiy/entities/Option.entity").Option>;
-    getOption(id: string): Promise<import("../entiy/entities/Option.entity").Option>;
-    updateOption(id: string, updateOptionDto: UpdateOptionDto): Promise<import("../entiy/entities/Option.entity").Option>;
-    deleteOption(id: string): Promise<void>;
     createExamRecord(createExamRecordDto: CreateExamRecordDto): Promise<import("../entiy/entities/ExamRecord.entity").ExamRecord>;
 }

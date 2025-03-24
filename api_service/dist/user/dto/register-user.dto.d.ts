@@ -7,6 +7,7 @@ export declare class RegisterUserDto {
 }
 export declare class LoginUserDto {
     username: string;
+    openid?: string;
     password: string;
 }
 export declare class UpdateUserDto {

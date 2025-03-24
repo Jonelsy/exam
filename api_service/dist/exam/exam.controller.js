@@ -49,9 +49,6 @@ let ExamController = class ExamController {
     getQuestionsByExam(examId, Page, PageSize) {
         return this.examService.findAllQuestions(+examId, +Page, +PageSize);
     }
-    getQuestion(id) {
-        return this.examService.findOneQuestion(+id);
-    }
     updateQuestion(id, updateQuestionDto) {
         return this.examService.updateQuestion(+id, updateQuestionDto);
     }
@@ -60,15 +57,6 @@ let ExamController = class ExamController {
     }
     createOption(createOptionDto) {
         return this.examService.createOption(createOptionDto);
-    }
-    getOption(id) {
-        return this.examService.getOptionById(+id);
-    }
-    updateOption(id, updateOptionDto) {
-        return this.examService.updateOption(+id, updateOptionDto);
-    }
-    deleteOption(id) {
-        return this.examService.deleteOption(+id);
     }
     createExamRecord(createExamRecordDto) {
         return this.examService.createExamRecord(createExamRecordDto);
@@ -105,7 +93,7 @@ __decorate([
     (0, common_1.Get)("/list"),
     (0, swagger_1.ApiBearerAuth)("jwt"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
-    (0, swagger_1.ApiOperation)({ summary: "获取考试列表" }),
+    (0, swagger_1.ApiOperation)({ summary: "通用获取考试列表" }),
     (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
@@ -172,17 +160,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ExamController.prototype, "getQuestionsByExam", null);
 __decorate([
-    (0, common_1.Get)("/question/:id"),
-    (0, swagger_1.ApiBearerAuth)("jwt"),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
-    (0, swagger_1.ApiOperation)({ summary: "获取单个题目信息" }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
-    __param(0, (0, common_1.Param)("id")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], ExamController.prototype, "getQuestion", null);
-__decorate([
     (0, common_1.Patch)("/question/:id"),
     (0, swagger_1.ApiBearerAuth)("jwt"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
@@ -218,40 +195,6 @@ __decorate([
     __metadata("design:paramtypes", [option_dto_1.CreateOptionDto]),
     __metadata("design:returntype", void 0)
 ], ExamController.prototype, "createOption", null);
-__decorate([
-    (0, common_1.Get)("/option/:id"),
-    (0, swagger_1.ApiBearerAuth)("jwt"),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
-    (0, swagger_1.ApiOperation)({ summary: "获取单个选项信息" }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
-    __param(0, (0, common_1.Param)("id")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], ExamController.prototype, "getOption", null);
-__decorate([
-    (0, common_1.Patch)("/option/:id"),
-    (0, swagger_1.ApiBearerAuth)("jwt"),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
-    (0, swagger_1.ApiOperation)({ summary: "更新选项信息" }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
-    __param(0, (0, common_1.Param)("id")),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, option_dto_1.UpdateOptionDto]),
-    __metadata("design:returntype", void 0)
-], ExamController.prototype, "updateOption", null);
-__decorate([
-    (0, common_1.Delete)("/option/:id"),
-    (0, swagger_1.ApiBearerAuth)("jwt"),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
-    (0, swagger_1.ApiOperation)({ summary: "删除选项" }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: "成功" }),
-    __param(0, (0, common_1.Param)("id")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], ExamController.prototype, "deleteOption", null);
 __decorate([
     (0, common_1.Post)("/record"),
     (0, swagger_1.ApiBearerAuth)("jwt"),

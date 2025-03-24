@@ -48,7 +48,7 @@ export class UserController {
   @ApiResponse({ status: 200, description: "用户登陆成功" })
   @ApiResponse({ status: 401, description: "Invalid credentials" })
   async login(@Body() item: LoginUserDto) {
-    return this.userService.login(item.username, item.password);
+    return this.userService.login(item.username, item.password, item.openid);
   }
 
   @Post("/userList")
@@ -110,14 +110,14 @@ export class UserController {
     return this.userService.remove(+id);
   }
 
-  @Get("/protected-data")
-  @ApiOperation({ summary: "获取受保护的数据" })
-  @ApiResponse({ status: 200, description: "成功获取受保护的数据" })
-  // @Roles(0, 1)
-  // @ExclusiveRoles(0, 1)
-  async getProtectedData() {
-    return {
-      message: "这个接口只允许role为0或1访问",
-    };
-  }
+  // @Get("/protected-data")
+  // @ApiOperation({ summary: "获取受保护的数据" })
+  // @ApiResponse({ status: 200, description: "成功获取受保护的数据" })
+  // // @Roles(0, 1)
+  // // @ExclusiveRoles(0, 1)
+  // async getProtectedData() {
+  //   return {
+  //     message: "这个接口只允许role为0或1访问",
+  //   };
+  // }
 }

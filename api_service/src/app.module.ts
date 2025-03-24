@@ -8,6 +8,7 @@ import { ClassModule } from "./class/class.module";
 import { ExamModule } from "./exam/exam.module";
 import { UserModule } from "./user/user.module";
 import { ClassExamModule } from "./classExam/classExam.module";
+import { StudentModule } from "./student/student.module";
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -25,6 +26,7 @@ import { ClassExamModule } from "./classExam/classExam.module";
     ExamModule,
     UserModule,
     ClassExamModule,
+    StudentModule,
   ],
   controllers: [AppController],
   providers: [

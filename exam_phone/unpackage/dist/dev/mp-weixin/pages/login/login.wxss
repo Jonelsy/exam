@@ -1,0 +1,18 @@
+
+.login-container.data-v-b237504c {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-color: #f5f5f5;
+}
+.login-form.data-v-b237504c {
+	width: 400px;
+}
+.uni-card.data-v-b237504c {
+	padding: 20px;
+}
+.uni-button.data-v-b237504c {
+	width: 100%;
+}
+

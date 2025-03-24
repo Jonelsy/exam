@@ -6,7 +6,7 @@
         :key="index" 
         :span="6"
       >
-        <el-card class="exam-card">
+        <el-card class="exam-card" shadow="hover">
           <div slot="header" class="clearfix">
             <span>{{ item.className }}</span>
           </div>
@@ -17,9 +17,11 @@
               :type="new Date(item.startTime) > new Date() ? 'info' : new Date() <= new Date(item.endTime) ? 'success' : 'danger'"
               class="exam-tag"
             >
-              {{ item.examName }} 
               ({{ new Date(item.startTime) > new Date() ? '未开始' : new Date() <= new Date(item.endTime) ? '进行中' : '已结束' }})
             </el-tag>
+            <template #footer>
+              <el-button v-if="new Date(item.startTime) > new Date()" type="danger" :icon="Delete" circle />
+            </template>
         </el-card>
       </el-col>
     </el-row>
@@ -76,6 +78,9 @@
 import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { getClassList, getExamList, publishClassExam, getExamClassList } from '@/api/exam'
+import {
+  Delete,
+} from '@element-plus/icons-vue'
 
 interface ClassItem {
   classId: string
@@ -177,7 +182,7 @@ getExamLists(Number(localStorage.getItem('userId')))
 
   .exam-card {
     margin-bottom: 20px;
-
+    cursor: pointer;
     .exam-tag {
       margin-right: 10px;
       margin-bottom: 10px;

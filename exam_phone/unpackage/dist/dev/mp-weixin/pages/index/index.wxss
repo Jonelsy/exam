@@ -1,0 +1,170 @@
+
+.home-container.data-v-57280228 {
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 个人信息卡片 */
+.profile-card.data-v-57280228 {
+  background: linear-gradient(135deg, #1890ff, #096dd9);
+  border-radius: 12px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.2);
+  margin-bottom: 20px;
+}
+.profile-header.data-v-57280228 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.avatar.data-v-57280228 {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+.user-info.data-v-57280228 {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.username.data-v-57280228 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.user-id.data-v-57280228 {
+  font-size: 14px;
+  opacity: 0.8;
+}
+.profile-stats.data-v-57280228 {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+.stat-item.data-v-57280228 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+.stat-value.data-v-57280228 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.stat-label.data-v-57280228 {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* 考试安排部分 */
+.section-title.data-v-57280228 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.view-all.data-v-57280228 {
+  font-size: 12px;
+  color: #1890ff;
+}
+.exam-list.data-v-57280228 {
+  margin-bottom: 20px;
+}
+.exam-card.data-v-57280228 {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.exam-header.data-v-57280228 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.exam-title.data-v-57280228 {
+  font-size: 16px;
+  font-weight: bold;
+}
+.exam-status.data-v-57280228 {
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  color: #666;
+}
+.exam-status.active.data-v-57280228 {
+  background-color: #f6ffed;
+  color: #52c41a;
+}
+.exam-info.data-v-57280228 {
+  margin-bottom: 12px;
+}
+.info-item.data-v-57280228 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #666;
+}
+.info-item text.data-v-57280228 {
+  margin-left: 6px;
+}
+.exam-footer.data-v-57280228 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px dashed #eee;
+}
+.exam-progress.data-v-57280228 {
+  font-size: 12px;
+  color: #666;
+}
+.action-btn.data-v-57280228 {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 15px;
+  background-color: #f5f5f5;
+  color: #666;
+  border: none;
+}
+.action-btn.primary.data-v-57280228 {
+  background-color: #1890ff;
+  color: white;
+}
+
+/* 快捷操作 */
+.quick-actions.data-v-57280228 {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+}
+.quick-btn.data-v-57280228 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 48%;
+  height: 80px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+.quick-btn text.data-v-57280228 {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #1890ff;
+}
+

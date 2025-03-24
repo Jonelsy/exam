@@ -12,6 +12,8 @@ export declare class UserController {
             username: string;
             userId: number;
             role: number;
+            openid: string;
+            name: string;
         };
         code: number;
     }>;
@@ -25,9 +27,6 @@ export declare class UserController {
         message: string;
     }>;
     remove(id: string): Promise<{
-        message: string;
-    }>;
-    getProtectedData(): Promise<{
         message: string;
     }>;
 }

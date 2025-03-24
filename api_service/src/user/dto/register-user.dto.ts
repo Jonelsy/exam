@@ -33,6 +33,10 @@ export class LoginUserDto {
   @IsString()
   username: string;
 
+  @ApiProperty({ description: "openid", example: "" })
+  @IsString()
+  openid?: string;
+
   @ApiProperty({ description: "密码", example: "1234567" })
   @IsNotEmpty({ message: "密码不能为空" })
   @IsString()

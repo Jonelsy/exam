@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 05/03/2025 19:23:05
+ Date: 10/03/2025 20:43:31
 */
 
 SET NAMES utf8mb4;
@@ -53,6 +53,7 @@ CREATE TABLE `class_exam`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '关联ID',
   `class_id` int(11) NOT NULL COMMENT '班级ID',
   `exam_id` int(11) NOT NULL COMMENT '考试ID',
+  `teacher_id` int(11) NOT NULL COMMENT '老师ID',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_class_exam`(`class_id`, `exam_id`) USING BTREE,
   INDEX `exam_id`(`exam_id`) USING BTREE
@@ -61,9 +62,11 @@ CREATE TABLE `class_exam`  (
 -- ----------------------------
 -- Records of class_exam
 -- ----------------------------
-INSERT INTO `class_exam` VALUES (1, 1, 1);
-INSERT INTO `class_exam` VALUES (3, 3, 1);
-INSERT INTO `class_exam` VALUES (2, 3, 2);
+INSERT INTO `class_exam` VALUES (1, 1, 1, 8);
+INSERT INTO `class_exam` VALUES (2, 3, 2, 8);
+INSERT INTO `class_exam` VALUES (3, 3, 1, 8);
+INSERT INTO `class_exam` VALUES (4, 1, 14, 8);
+INSERT INTO `class_exam` VALUES (5, 16, 16, 8);
 
 -- ----------------------------
 -- Table structure for exam
@@ -98,6 +101,7 @@ INSERT INTO `exam` VALUES (12, '123', '321', '2025-02-23 00:00:00', '2025-02-24 
 INSERT INTO `exam` VALUES (13, '321', '321', '2025-02-23 00:00:00', '2025-02-23 11:35:39', 695, 100, 0, 1, '2025-02-23 11:35:53', 8);
 INSERT INTO `exam` VALUES (14, '1313', '13131', '2025-02-24 00:00:00', '2025-03-25 00:00:00', 41760, 100, 0, 1, '2025-02-23 11:36:06', 8);
 INSERT INTO `exam` VALUES (15, '321', '3123', '2025-02-23 10:36:06', '2025-02-23 12:36:06', 120, 100, 0, 1, '2025-02-23 11:36:25', 8);
+INSERT INTO `exam` VALUES (16, '新增未开始考试', '新增未开始考试', '2025-03-22 00:00:00', '2025-03-31 00:00:00', 12960, 100, 1, 1, NULL, 8);
 
 -- ----------------------------
 -- Table structure for exam_record
@@ -132,7 +136,7 @@ CREATE TABLE `option`  (
   `exam_id` int(11) NOT NULL COMMENT '所属考试ID',
   PRIMARY KEY (`option_id`) USING BTREE,
   INDEX `question_id`(`question_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 234 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of option
@@ -152,7 +156,7 @@ CREATE TABLE `question`  (
   `order_num` int(11) NOT NULL COMMENT '题目顺序',
   PRIMARY KEY (`question_id`) USING BTREE,
   INDEX `exam_id`(`exam_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 155 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of question
@@ -196,7 +200,7 @@ CREATE TABLE `user_class`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_user_class`(`user_id`, `class_id`) USING BTREE,
   INDEX `class_id`(`class_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_class
