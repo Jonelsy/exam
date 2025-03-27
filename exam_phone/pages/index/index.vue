@@ -32,7 +32,7 @@
     </view>
 
     <view class="exam-list">
-      <view class="exam-card" v-for="(exam, index) in exams" :key="index">
+      <view class="exam-card" v-for="(exam, index) in exams" :key="index" @click="goExam(exam)">
         <view class="exam-header">
           <text class="exam-title">{{exam.examName}}</text>
 		  <uni-tag text="未开始" :circle="true" v-if="examStatus(exam) === 'not-started'"></uni-tag>
@@ -135,6 +135,21 @@ export default {
 	    if (now < startTime) return 'not-started';
 	    if (now <= endTime&&now >= startTime) return 'in-progress';
 	    return 'finished';
+	  },
+	  //跳转到考试
+	  goExam(item){
+		const now = new Date();
+		//考试正在进行中
+		if (now <= new Date(item.endTime)&&now >= new Date(item.startTime)){
+			uni.navigateTo({
+				url: `/pages/exam/exam?examId=${item.examId}`
+			});
+		}else{
+			//已经结束
+			uni.navigateTo({
+				url: `/pages/score/score?examId=${item.examId}`
+			});
+		}
 	  },
     startPractice() {
       uni.navigateTo({

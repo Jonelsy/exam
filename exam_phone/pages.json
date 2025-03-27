@@ -1,32 +1,29 @@
 {
-	"pages": [
-		{
-			"path" : "pages/login/login",
-			"style" : 
-			{
-				"navigationBarTitleText" : "登录"
+	"pages": [{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
 			}
 		},
-	{
-		"path": "pages/index/index",
-		"style": {
-			"navigationBarTitleText": "首页"
-		}
-	},
-	{
-		"path" : "pages/home/home",
-		"style" : 
 		{
-			"navigationBarTitleText" : "首页"
-		}
-	},
-	{
-		"path" : "pages/exam/exam",
-		"style" : 
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
 		{
-			"navigationBarTitleText" : "答题界面"
+			"path": "pages/score/score",
+			"style": {
+				"navigationBarTitleText": "成绩"
+			}
+		},
+		{
+			"path": "pages/exam/exam",
+			"style": {
+				"navigationBarTitleText": "答题界面"
+			}
 		}
-	}],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "在线考试小程序",

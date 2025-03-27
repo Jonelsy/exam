@@ -101,10 +101,10 @@ var components
 try {
   components = {
     uniTag: function () {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-tag/components/uni-tag/uni-tag */ "uni_modules/uni-tag/components/uni-tag/uni-tag").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-tag/components/uni-tag/uni-tag.vue */ 82))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-tag/components/uni-tag/uni-tag */ "uni_modules/uni-tag/components/uni-tag/uni-tag").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-tag/components/uni-tag/uni-tag.vue */ 93))
     },
     uniIcons: function () {
-      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 107))
+      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 100))
     },
   }
 } catch (e) {
@@ -324,6 +324,21 @@ var _default = {
       if (now < startTime) return 'not-started';
       if (now <= endTime && now >= startTime) return 'in-progress';
       return 'finished';
+    },
+    //跳转到考试
+    goExam: function goExam(item) {
+      var now = new Date();
+      //考试正在进行中
+      if (now <= new Date(item.endTime) && now >= new Date(item.startTime)) {
+        uni.navigateTo({
+          url: "/pages/exam/exam?examId=".concat(item.examId)
+        });
+      } else {
+        //已经结束
+        uni.navigateTo({
+          url: "/pages/score/score?examId=".concat(item.examId)
+        });
+      }
     },
     startPractice: function startPractice() {
       uni.navigateTo({
