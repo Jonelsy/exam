@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, MinLength } from "class-validator";
+import { IsDate, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 export class getStuExamListDto {
   @ApiProperty({ description: "userId", example: 17 })
@@ -16,34 +16,43 @@ export class getStuExamListDto {
   @IsNumber()
   pageSize: number;
 }
-export class LoginUserDto {
-  @ApiProperty({ description: "classId", example: 0 })
-  @IsNotEmpty({ message: "classId不能为空" })
+
+export class answersDto {
+  @ApiProperty({ description: "选项ID", example: 0 })
+  @IsNotEmpty({ message: "选项ID不能为空" })
   @IsNumber()
-  classId: number;
+  optionId: number;
 
-  @ApiProperty({ description: "openid", example: "" })
-  @IsString()
-  openid?: string;
+  @ApiProperty({ description: "题目ID", example: 0 })
+  @IsNotEmpty({ message: "题目ID不能为空" })
+  @IsNumber()
+  questionId: number;
 
-  @ApiProperty({ description: "密码", example: "1234567" })
-  @IsNotEmpty({ message: "密码不能为空" })
+  @ApiProperty({ description: "题目类型", example: 0 })
+  @IsNumber()
+  questionType: number;
+
+  @ApiProperty({ description: "多选题答案", example: [0, 1, 2] })
+  optionIds?: Array<number>;
+
+  @ApiProperty({ description: "简答题答案", example: "123" })
   @IsString()
-  @MinLength(6, { message: "密码长度不能小于6位" })
-  password: string;
+  answer?: string;
+
+  @ApiProperty({ description: "判断题答案", example: 1 })
+  @IsString()
+  userAnswer?: string;
 }
-export class UpdateUserDto {
-  @ApiProperty({ description: "用户名", example: "john_doe" })
-  @IsNotEmpty({ message: "用户名不能为空" })
-  @IsString()
-  username: string;
+export class subExamDto {
+  @ApiProperty({ description: "answers", example: [] })
+  answers: answersDto[];
 
-  @ApiProperty({ description: "姓名", example: "何小雨" })
-  @IsNotEmpty({ message: "姓名不能为空" })
-  @IsString()
-  name: string;
+  @ApiProperty({ description: "examId", example: 17 })
+  @IsNotEmpty({ message: "examId不能为空" })
+  @IsNumber()
+  examId: number;
 
-  @ApiProperty({ description: "班级", example: 0 })
-  @IsString()
-  classId: number | null;
+  @ApiProperty({ description: "提交时间" })
+  @IsDate()
+  submitTime: Date;
 }

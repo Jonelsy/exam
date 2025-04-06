@@ -5,7 +5,8 @@ import { User } from "../entiy/entities/User.entity";
 import { UserClass } from "src/entiy/entities/UserClass.entity";
 import { ClassExam } from "src/entiy/entities/ClassExam.entity";
 import { Exam } from "src/entiy/entities/Exam.entity";
-import { getStuExamListDto } from "./dto/register-student.dto";
+import { SubmissionAnswers } from "src/entiy/entities/SubmissionAnswers.entity";
+import { getStuExamListDto, subExamDto } from "./dto/register-student.dto";
 
 @Injectable()
 export class StudentService {
@@ -18,6 +19,8 @@ export class StudentService {
     private classExamRepository: Repository<ClassExam>,
     @InjectRepository(Exam)
     private examRepository: Repository<Exam>,
+    @InjectRepository(SubmissionAnswers)
+    private submissionAnswersRepository: Repository<SubmissionAnswers>,
   ) {}
 
   async findAllExamList(
@@ -54,5 +57,54 @@ export class StudentService {
 
     const [data, total] = await query.getManyAndCount();
     return { data, total };
+  }
+
+  async subExamList(item: subExamDto) {
+    // 使用事务确保操作原子性
+    const queryRunner =
+      this.submissionAnswersRepository.manager.connection.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      // 先删除相同examId的所有记录
+      await queryRunner.manager.delete(SubmissionAnswers, {
+        examId: item.examId,
+      });
+      // 保存新的答案记录
+      for (const answer of item.answers) {
+        const submission = new SubmissionAnswers();
+        submission.questionId = answer.questionId;
+        submission.questionType = answer.questionType;
+        submission.examId = item.examId;
+        submission.createdAt = new Date();
+        // 根据题型设置不同的字段
+        switch (answer.questionType) {
+          case 0: // 单选题
+            submission.answerContent = answer.optionId?.toString() || "";
+            break;
+          case 2: // 判断题
+            submission.answerContent = answer.userAnswer?.toString() || "";
+            break;
+          case 1: // 多选题
+            submission.optionIds = answer.optionIds?.join(",") || "";
+            break;
+          case 3: // 简答题
+            submission.answerContent = answer.answer || "";
+            break;
+        }
+
+        await queryRunner.manager.save(submission);
+      }
+
+      await queryRunner.commitTransaction();
+      return { success: true, message: "提交成功" };
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      console.error("Submission error:", error);
+      throw new HttpException("提交失败", HttpStatus.INTERNAL_SERVER_ERROR);
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

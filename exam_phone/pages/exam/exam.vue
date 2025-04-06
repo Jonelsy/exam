@@ -177,7 +177,7 @@
 			// 获取题目列表
 			getExamList() {
 				uni.request({
-					url: `http://localhost:3000/exam/question/${this.examId}/1/100`,
+					url: `http://localhost:3000/exam/question/${this.examId}/1/1000`,
 					method: 'GET',
 					header: {
 						'Authorization': 'Bearer ' + uni.getStorageSync('token')
@@ -199,8 +199,6 @@
 					}
 				})
 			},
-
-			// 提交试卷
 			// 提交试卷
 			submitExam() {
 				// 1. 准备提交数据
@@ -238,12 +236,9 @@
 						return answerItem;
 					})
 				};
-
-				console.log('提交数据:', submitData);
-
 				// 其余提交逻辑保持不变...
 				uni.request({
-					url: 'http://localhost:3000/exam/submit',
+					url: 'http://localhost:3000/studnet/subExamList',
 					method: 'POST',
 					header: {
 						'Authorization': 'Bearer ' + uni.getStorageSync('token'),
@@ -252,6 +247,17 @@
 					data: submitData,
 					success: (res) => {
 						// 处理成功响应
+						uni.showToast({
+							title: '交卷成功',
+							icon: 'none',
+							duration: 1500,   // 1.5秒后自动关闭
+						})
+						 // 2. 延迟跳转（避免 Toast 被立即打断）
+						    setTimeout(() => {
+						      uni.navigateTo({
+						        url: '/pages/index/index' 
+						      });
+						    }, 1500)
 					},
 					fail: (err) => {
 						// 处理失败

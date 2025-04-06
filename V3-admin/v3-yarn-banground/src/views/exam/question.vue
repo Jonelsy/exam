@@ -1,7 +1,7 @@
 <template>
     <div class="question-editor">
         <el-button type="primary" :icon="Edit" @click="addQuestion(questions.length)">添加题目</el-button>
-        
+
         <div v-for="(question, qIndex) in questions" :key="qIndex" class="question-item">
             <!-- 选择题型，用于下方展示 -->
             <div class="question-header">
@@ -12,6 +12,11 @@
                     <el-option label="简答题" :value=3></el-option>
                 </el-select>
                 <el-button type="danger" :icon="Delete" circle @click="removeQuestion(qIndex)"></el-button>
+            </div>
+            <!-- 设置分值 -->
+            <div class="score">
+                <el-tag type="warning">分值</el-tag>
+                <el-input v-model.number="question.score" type="number" placeholder="请输入分值" class="code-block"></el-input>
             </div>
 
             <div class="question-content">
@@ -81,6 +86,7 @@ import { ElMessage } from 'element-plus'
 
 const route = useRoute()
 const examId = route.query.examId
+const score = route.query.score
 const examName = route.query.examName
 const questions = ref<Array<{
     questionType: number//类型
@@ -137,7 +143,7 @@ const getTableData = async () => {
     try {
         const params: any = {
             page: 1,
-            pageSize: 10,
+            pageSize: 1000,
             examId: examId,
         }
         const res = await getQuestionList(params)
@@ -145,54 +151,66 @@ const getTableData = async () => {
     } catch (error) {
         console.error(error)
     } finally {
-        
+
     }
 }
 
 // 保存试题
-const submitQuestion = async (id:any) => {
-    try {
-        // 先清空所有题目与答案
-        await deleteQuestion(id)
-        for (const [qindex, item] of questions.value.entries()) {
-            const question = {
-                content: item.content,
-                questionType: item.questionType,
-                examId: examId,
-                score: 10,
-                orderNum: qindex
-            }
-            // 先保存题目
-            const res = await creatQuestion(question)
-            
-            // 再保存选项
-            if (item.questionType === 3) {
-                // 简答题
-                for (const optionItem of item.options) {
-                    await creatOption({
-                        questionId: res.data.questionId,
-                        content: optionItem.content,
-                        isCorrect: 1,
-                        examId: examId
-                    })
+const submitQuestion = async (id: any) => {
+    // 判断分值是否满足
+    let fullNumber = 0
+    questions.value.forEach(item => {
+        fullNumber += item.score
+    })
+    if (Number(fullNumber) !== Number(score)) {
+        ElMessage({
+            message: '题目总分值未达到考试设立目标分值',
+            type: 'warning',
+        })
+    } else {
+        try {
+            // 先清空所有题目与答案
+            await deleteQuestion(id)
+            for (const [qindex, item] of questions.value.entries()) {
+                const question = {
+                    content: item.content,
+                    questionType: item.questionType,
+                    examId: examId,
+                    score: item.score,
+                    orderNum: qindex
                 }
-            } else {
-                // 其他题型
-                for (const optionItem of item.options) {
-                    await creatOption({
-                        questionId: res.data.questionId,
-                        content: optionItem.content,
-                        isCorrect: optionItem.isCorrect,
-                        examId: examId
-                    })
+                // 先保存题目
+                const res = await creatQuestion(question)
+
+                // 再保存选项
+                if (item.questionType === 3) {
+                    // 简答题
+                    for (const optionItem of item.options) {
+                        await creatOption({
+                            questionId: res.data.questionId,
+                            content: optionItem.content,
+                            isCorrect: 1,
+                            examId: examId
+                        })
+                    }
+                } else {
+                    // 其他题型
+                    for (const optionItem of item.options) {
+                        await creatOption({
+                            questionId: res.data.questionId,
+                            content: optionItem.content,
+                            isCorrect: optionItem.isCorrect,
+                            examId: examId
+                        })
+                    }
                 }
             }
+            ElMessage.success('操作成功')
+        } catch (error) {
+            console.error(error)
+        } finally {
+
         }
-        ElMessage.success('操作成功')
-    } catch (error) {
-        console.error(error)
-    } finally {
-        
     }
 }
 onMounted(() => {
@@ -235,5 +253,15 @@ onMounted(() => {
 .code-block {
     font-family: Consolas, Monaco, monospace;
     font-size: 14px;
+}
+
+.score {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.question-content {
+    margin-top: 10px;
 }
 </style>

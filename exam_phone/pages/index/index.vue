@@ -11,7 +11,7 @@
       </view>
       <view class="profile-stats">
         <view class="stat-item">
-          <text class="stat-value">12</text>
+          <text class="stat-value">{{exams.length}}</text>
           <text class="stat-label">累计考试</text>
         </view>
         <view class="stat-item">
@@ -19,8 +19,8 @@
           <text class="stat-label">正确率</text>
         </view>
         <view class="stat-item">
-          <text class="stat-value">3</text>
-          <text class="stat-label">收藏题目</text>
+          <text class="stat-value">1</text>
+          <text class="stat-label">未开始考试</text>
         </view>
       </view>
     </view>
@@ -53,12 +53,15 @@
           <view class="exam-progress">
 			  <view class="info-item">
 			    <uni-icons type="time" size="16" color="#666"></uni-icons>
-			    <text>考试时间：{{exam.newstartTime}}—{{exam.newendTime}}</text>
+			    <text>考试时间：\n{{exam.newstartTime}}至\n{{exam.newendTime}}</text>
 			  </view>
 		  </view>
-          <button class="action-btn" :class="{'primary': exam.isLimit === 0}">
-            本次考试不允许重复作答
+          <button v-if="exam.isLimit === 0" class="action-btn" :class="{'primary': exam.isLimit === 0}">
+            本次考试允许重复作答
           </button>
+		  <button v-else class="action-btn">
+		    本次考试不允许重复作答
+		  </button>
         </view>
       </view>
     </view>
@@ -139,17 +142,26 @@ export default {
 	  //跳转到考试
 	  goExam(item){
 		const now = new Date();
-		//考试正在进行中
-		if (now <= new Date(item.endTime)&&now >= new Date(item.startTime)){
-			uni.navigateTo({
-				url: `/pages/exam/exam?examId=${item.examId}`
-			});
+		// 判断是否允许重复作答
+		if(item.isLimit===0){
+			//考试正在进行中
+			if (now <= new Date(item.endTime)&&now >= new Date(item.startTime)){
+				uni.navigateTo({
+					url: `/pages/exam/exam?examId=${item.examId}`
+				});
+			}else{
+				//已经结束
+				uni.navigateTo({
+					url: `/pages/score/score?examId=${item.examId}`
+				});
+			}
 		}else{
-			//已经结束
-			uni.navigateTo({
-				url: `/pages/score/score?examId=${item.examId}`
+			uni.showToast({
+				title: '禁止重复作答',
+				icon: 'none'
 			});
 		}
+		
 	  },
     startPractice() {
       uni.navigateTo({

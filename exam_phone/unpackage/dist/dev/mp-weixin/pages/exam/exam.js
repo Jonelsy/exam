@@ -101,13 +101,13 @@ var components
 try {
   components = {
     uniIcons: function () {
-      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 100))
+      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 73))
     },
     uniPopup: function () {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-popup/components/uni-popup/uni-popup */ "uni_modules/uni-popup/components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup/uni-popup.vue */ 117))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-popup/components/uni-popup/uni-popup */ "uni_modules/uni-popup/components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup/uni-popup.vue */ 108))
     },
     uniPopupDialog: function () {
-      return Promise.all(/*! import() | uni_modules/uni-popup/components/uni-popup-dialog/uni-popup-dialog */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-popup/components/uni-popup-dialog/uni-popup-dialog")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup-dialog/uni-popup-dialog.vue */ 124))
+      return Promise.all(/*! import() | uni_modules/uni-popup/components/uni-popup-dialog/uni-popup-dialog */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-popup/components/uni-popup-dialog/uni-popup-dialog")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup-dialog/uni-popup-dialog.vue */ 115))
     },
   }
 } catch (e) {
@@ -391,7 +391,7 @@ var _default = {
     getExamList: function getExamList() {
       var _this = this;
       uni.request({
-        url: "http://localhost:3000/exam/question/".concat(this.examId, "/1/100"),
+        url: "http://localhost:3000/exam/question/".concat(this.examId, "/1/1000"),
         method: 'GET',
         header: {
           'Authorization': 'Bearer ' + uni.getStorageSync('token')
@@ -413,7 +413,6 @@ var _default = {
         }
       });
     },
-    // 提交试卷
     // 提交试卷
     submitExam: function submitExam() {
       var _this2 = this;
@@ -451,11 +450,9 @@ var _default = {
           return answerItem;
         })
       };
-      console.log('提交数据:', submitData);
-
       // 其余提交逻辑保持不变...
       uni.request({
-        url: 'http://localhost:3000/exam/submit',
+        url: 'http://localhost:3000/studnet/subExamList',
         method: 'POST',
         header: {
           'Authorization': 'Bearer ' + uni.getStorageSync('token'),
@@ -464,6 +461,17 @@ var _default = {
         data: submitData,
         success: function success(res) {
           // 处理成功响应
+          uni.showToast({
+            title: '交卷成功',
+            icon: 'none',
+            duration: 1500 // 1.5秒后自动关闭
+          });
+          // 2. 延迟跳转（避免 Toast 被立即打断）
+          setTimeout(function () {
+            uni.navigateTo({
+              url: '/pages/index/index'
+            });
+          }, 1500);
         },
         fail: function fail(err) {
           // 处理失败

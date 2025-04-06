@@ -25,11 +25,14 @@ let StudentController = class StudentController {
     async findAll(item) {
         return this.studentService.findAllExamList(item);
     }
+    async subExamList(item) {
+        return this.studentService.subExamList(item);
+    }
 };
 exports.StudentController = StudentController;
 __decorate([
     (0, common_1.Post)("/stuExamList"),
-    (0, swagger_1.ApiOperation)({ summary: "获取学生下所有考试" }),
+    (0, swagger_1.ApiOperation)({ summary: "获取学生下所有考试列表" }),
     (0, swagger_1.ApiResponse)({ status: 201, description: "成功获取列表" }),
     (0, swagger_1.ApiBearerAuth)("jwt"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
@@ -38,6 +41,17 @@ __decorate([
     __metadata("design:paramtypes", [register_student_dto_1.getStuExamListDto]),
     __metadata("design:returntype", Promise)
 ], StudentController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Post)("/subExamList"),
+    (0, swagger_1.ApiOperation)({ summary: "学生提交考试答案" }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: "成功提交" }),
+    (0, swagger_1.ApiBearerAuth)("jwt"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [register_student_dto_1.subExamDto]),
+    __metadata("design:returntype", Promise)
+], StudentController.prototype, "subExamList", null);
 exports.StudentController = StudentController = __decorate([
     (0, swagger_1.ApiTags)("学生考试相关接口"),
     (0, common_1.Controller)("studnet"),

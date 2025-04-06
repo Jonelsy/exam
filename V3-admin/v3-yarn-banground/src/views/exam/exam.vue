@@ -282,6 +282,7 @@ const goQuestion = (row:Exam)=>{
     query: {
       examId: row.examId,
       examName: row.examName,
+      score: row.totalScore,
     }
   })
 }

@@ -3,13 +3,16 @@ export declare class getStuExamListDto {
     page: number;
     pageSize: number;
 }
-export declare class LoginUserDto {
-    classId: number;
-    openid?: string;
-    password: string;
+export declare class answersDto {
+    optionId: number;
+    questionId: number;
+    questionType: number;
+    optionIds?: Array<number>;
+    answer?: string;
+    userAnswer?: string;
 }
-export declare class UpdateUserDto {
-    username: string;
-    name: string;
-    classId: number | null;
+export declare class subExamDto {
+    answers: answersDto[];
+    examId: number;
+    submitTime: Date;
 }
