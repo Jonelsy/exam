@@ -19,7 +19,7 @@ const typeorm_2 = require("typeorm");
 const Class_entity_1 = require("../entiy/entities/Class.entity");
 const User_entity_1 = require("../entiy/entities/User.entity");
 const UserClass_entity_1 = require("../entiy/entities/UserClass.entity");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 let ClassService = class ClassService {
     constructor(classRepository, userRepository, userClassRepository) {
         this.classRepository = classRepository;

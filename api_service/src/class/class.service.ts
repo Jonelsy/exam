@@ -5,7 +5,7 @@ import { Class } from "../entiy/entities/Class.entity";
 import { User } from "../entiy/entities/User.entity";
 import { UserClass } from "../entiy/entities/UserClass.entity";
 import { UserClassDto } from "./dto/class.dto";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 @Injectable()
 export class ClassService {
   constructor(
