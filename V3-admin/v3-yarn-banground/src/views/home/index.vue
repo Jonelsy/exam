@@ -46,7 +46,7 @@
                 <el-statistic :value="100">
                   <template #title>
                     <div style="display: inline-flex; align-items: center">
-                      方案总数
+                      考试数量
                       <el-tooltip
                           effect="dark"
                           content="您个性化一对一方案数量"

@@ -10,7 +10,7 @@ export const reqLogin = (data:reqLoginType)=>{
 }
 
 export const reqRegin = (data:reqReginType)=>{
-    return request.post<any,reqReginresPonse>('/user/regist',data)
+    return request.post<any,reqReginresPonse>('/user/register',data)
 }
 
 export const userinfo = (userId:number)=>{

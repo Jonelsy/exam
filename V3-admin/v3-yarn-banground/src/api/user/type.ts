@@ -24,12 +24,14 @@ export interface reqReginType{
     password:string,
     repassword:string,
     name:string,
-    openid:string,
+    openid?:number,
+    classId?:number
 }
 //定义注册后返回数据类型\
 export interface dataReginType{
-    code:number,
-    mes:string
+    item:any,
+    message:string
+    statusCode:number
 }
 export interface reqReginresPonse{
     data:dataReginType

@@ -115,16 +115,24 @@
 						password:this.form.password,
 					},
 					success: (res) => {
-						uni.setStorageSync('token', res.data.token);
-						uni.setStorageSync('User', res.data.payload);
+						if(res.data.code===200){
+							uni.setStorageSync('token', res.data.token);
+							uni.setStorageSync('User', res.data.payload);
+								uni.showToast({
+									title: '登录成功',
+									icon: 'success'
+								});
+								// 跳转到首页或其他页面
+								uni.navigateTo({
+									url: '/pages/index/index'
+								});
+						}else{
 							uni.showToast({
-								title: '登录成功',
-								icon: 'success'
+								title: res.data.message,
+								icon: 'error'
 							});
-							// 跳转到首页或其他页面
-							uni.navigateTo({
-								url: '/pages/index/index'
-							});
+						}
+						
 					},
 					fail: (err) => {
 						uni.showToast({

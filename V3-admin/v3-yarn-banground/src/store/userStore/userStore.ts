@@ -33,14 +33,16 @@ let userUserStore = defineStore("User", {
       }
     },
     //注册函数
-    // async signSub(data:reqReginType){
-    //     let result = await reqRegin(data)
-    //     if (Number(result.data.code)===0){
-    //         return 'ok'
-    //     }else{
-    //         return Promise.reject(new Error(result.data.message))
-    //     }
-    // },
+    async signSub(data:reqReginType){
+        let result = await reqRegin(data)
+        console.log(result);
+        
+        if (result.data.item){
+            return 'ok'
+        }else{
+            return Promise.reject(new Error(result.data.message))
+        }
+    },
     //获取用户信息函数
     async userinfos(userId: number) {
       return await userinfo(userId);
